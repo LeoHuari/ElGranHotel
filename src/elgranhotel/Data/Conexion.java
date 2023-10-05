@@ -33,7 +33,7 @@ public abstract class Conexion {
     }
     
     protected void desconectarBase(){
-         try {
+        try {
             if (resultado != null) {
                 resultado.close();
             }

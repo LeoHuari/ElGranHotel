@@ -23,7 +23,7 @@ public class HabitacionData extends Conexion{
             sentencia = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             sentencia.setInt(1, habitacion.getPiso());
             sentencia.setInt(2, habitacion.getTipoHabitacionCodigo().getCodigo());
-            sentencia.setInt(3, habitacion.getDisponibilidad());
+            sentencia.setBoolean(3, habitacion.isDisponibilidad());
             sentencia.setBoolean(4, habitacion.isEstado());
             sentencia.executeUpdate();
             resultado = sentencia.getGeneratedKeys();
@@ -91,7 +91,7 @@ public class HabitacionData extends Conexion{
             sentencia = conexion.prepareStatement(sql);
             sentencia.setInt(1, habitacion.getPiso());
             sentencia.setInt(2, habitacion.getTipoHabitacionCodigo().getCodigo());
-            sentencia.setInt(3, habitacion.getDisponibilidad());
+            sentencia.setBoolean(3, habitacion.isDisponibilidad());
             sentencia.setBoolean(4, habitacion.isEstado());
             sentencia.setInt(5, habitacion.getIdHabitacion());
             int exito = sentencia.executeUpdate();
@@ -121,7 +121,7 @@ public class HabitacionData extends Conexion{
                 habitacion.setIdHabitacion(resultado.getInt(1));
                 habitacion.setPiso(resultado.getInt(2));
                 habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getInt(3));
-                habitacion.setDisponibilidad(resultado.getInt(4));
+                habitacion.setDisponibilidad(resultado.getBoolean(4));
                 habitacion.setEstado(resultado.getBoolean(5));
                 lista.add(habitacion);
             }
@@ -149,7 +149,7 @@ public class HabitacionData extends Conexion{
                 habitacion.setIdHabitacion(resultado.getInt(1));
                 habitacion.setPiso(resultado.getInt(2));
                 habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getInt(3));
-                habitacion.setDisponibilidad(resultado.getInt(4));
+                habitacion.setDisponibilidad(resultado.getBoolean(4));
                 habitacion.setEstado(resultado.getBoolean(5));
                 lista.add(habitacion);
             }
