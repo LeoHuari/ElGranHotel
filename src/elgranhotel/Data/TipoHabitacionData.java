@@ -8,6 +8,31 @@ import javax.swing.JOptionPane;
 
 
 public class TipoHabitacionData extends Conexion {
+
+    public TipoHabitacionData() {
+    }
+    
+    public TipoHabitacion buscarTipoHabitacion(int codigo){
+        TipoHabitacion tipo = new TipoHabitacion();
+        try{
+            conectarBase();
+            String sql = "SELECT * FROM tipohabitacion WHERE codigo = " + codigo ;
+            sentencia = conexion.prepareStatement(sql);
+            resultado = sentencia.executeQuery();
+            if(resultado.next()){
+                tipo.setCodigo(resultado.getInt(1));
+                tipo.setCantidadPersonas(resultado.getInt(2));
+                tipo.setCantidadCamas(resultado.getInt(3));
+                tipo.setTipoCama(resultado.getString(4));
+                tipo.setPrecio(resultado.getDouble(5));
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error en metodo buscarTipoHabitacion: "+ex);
+        }finally{
+            desconectarBase();
+        }
+        return tipo;
+    }
     
     public void agregarTipoHabitacion(TipoHabitacion tipo){
         try{

@@ -11,24 +11,47 @@ import java.time.LocalDate;
  * @author kicho
  */
 public class Reserva {
+    private int idReserva;
     private Huesped huesped;
     private Habitacion habitacion;
     private int cantPersonas;
     private LocalDate fechaEntrada;
     private LocalDate fechaSalida;
-    private double reserva;
+    private double importe;
     boolean estado;
 
-    public Reserva(Huesped huesped, Habitacion habitacion, int cantPersonas, LocalDate fechaEntrada, LocalDate fechaSalida, double reserva, boolean estado) {
+    public Reserva(int idReserva, Huesped huesped, Habitacion habitacion, int cantPersonas, LocalDate fechaEntrada, LocalDate fechaSalida, double reserva, boolean estado) {
+        this.idReserva = idReserva;
         this.huesped = huesped;
         this.habitacion = habitacion;
         this.cantPersonas = cantPersonas;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
-        this.reserva = reserva;
+        this.importe = reserva;
         this.estado = estado;
     }
 
+    public Reserva(Huesped huesped, Habitacion habitacion, int cantPersonas, LocalDate fechaEntrada, LocalDate fechaSalida, double importe, boolean estado) {
+        this.huesped = huesped;
+        this.habitacion = habitacion;
+        this.cantPersonas = cantPersonas;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.importe = importe;
+        this.estado = estado;
+    }
+
+    public Reserva() {
+    }
+
+    public int getIdReserva() {
+        return idReserva;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+    
     public Huesped getHuesped() {
         return huesped;
     }
@@ -69,12 +92,12 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
     }
 
-    public double getReserva() {
-        return reserva;
+    public double getImporte() {
+        return importe;
     }
 
-    public void setReserva(double reserva) {
-        this.reserva = reserva;
+    public void setImporte(double importe) {
+        this.importe = importe;
     }
 
     public boolean isEstado() {
@@ -87,7 +110,7 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "huesped=" + huesped.getNombre() + ", habitacion=" + habitacion + ", cantPersonas=" + cantPersonas + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", reserva=" + reserva + ", estado=" + estado + '}';
+        return "Reserva{" + "huesped=" + huesped.getNombre() + ", habitacion=" + habitacion + ", cantPersonas=" + cantPersonas + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", importe=" + importe + ", estado=" + estado + '}';
     }
 
    

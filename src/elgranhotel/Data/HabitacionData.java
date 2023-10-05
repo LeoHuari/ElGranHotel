@@ -15,7 +15,29 @@ import javax.swing.JOptionPane;
  * @author kicho
  */
 public class HabitacionData extends Conexion{
-    private Habitacion habitacion = new Habitacion();
+    private TipoHabitacionData tipoData = new TipoHabitacionData();
+    
+    public Habitacion buscarHabitacion(int idHabitacion){
+        Habitacion habitacion = new Habitacion();
+        try{
+            conectarBase();
+            String sql = "SELECT * FROM habitacion WHERE idHabitacion = " + idHabitacion ;
+            sentencia = conexion.prepareStatement(sql);
+            resultado = sentencia.executeQuery();
+            if(resultado.next()){
+                habitacion.setIdHabitacion(resultado.getInt(1));
+                habitacion.setPiso(resultado.getInt(2));
+                habitacion.setTipoHabitacionCodigo(tipoData.buscarTipoHabitacion(resultado.getInt(3)));
+                habitacion.setDisponibilidad(resultado.getBoolean(4));
+                habitacion.setEstado(resultado.getBoolean(5));
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error en el metodo buscarHabitacion: "+ex);
+        }finally{
+            desconectarBase();
+        }
+        return habitacion;
+    }
     
     public void agregarHabitacion(Habitacion habitacion){
         String sql = "INSERT INTO habitacion (piso, tipoHabitacionCodigo, disponibilidad, estado) VALUES (?, ?, ?, ?)";
