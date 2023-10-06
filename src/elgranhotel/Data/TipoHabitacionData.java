@@ -12,7 +12,7 @@ public class TipoHabitacionData extends Conexion {
     public TipoHabitacionData() {
     }
     
-    public TipoHabitacion buscarTipoHabitacion(int codigo){
+    public TipoHabitacion buscarTipoHabitacion(String codigo){
         TipoHabitacion tipo = new TipoHabitacion();
         try{
             conectarBase();
@@ -20,7 +20,7 @@ public class TipoHabitacionData extends Conexion {
             sentencia = conexion.prepareStatement(sql);
             resultado = sentencia.executeQuery();
             if(resultado.next()){
-                tipo.setCodigo(resultado.getInt(1));
+                tipo.setCodigo(resultado.getString(1));
                 tipo.setCantidadPersonas(resultado.getInt(2));
                 tipo.setCantidadCamas(resultado.getInt(3));
                 tipo.setTipoCama(resultado.getString(4));
@@ -37,19 +37,17 @@ public class TipoHabitacionData extends Conexion {
     public void agregarTipoHabitacion(TipoHabitacion tipo){
         try{
             conectarBase();
-            String sql = "INSERT INTO tipohabitacion(cantidadPersonas, cantidadCamas, tipoCamas, precio) "
-                    + "VALUES (?,?,?,?)";
-            sentencia = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            sentencia.setInt(1, tipo.getCantidadPersonas());
-            sentencia.setInt(2, tipo.getCantidadCamas());
-            sentencia.setString(3, tipo.getTipoCama());
-            sentencia.setDouble(4, tipo.getPrecio());
-            sentencia.executeUpdate();
-            //Devuelvo el codigo generado por la base de datos
-            resultado = sentencia.getGeneratedKeys();
+            String sql = "INSERT INTO tipohabitacion(codigo, cantidadPersonas, cantidadCamas, tipoCamas, precio) "
+                    + "VALUES (?,?,?,?,?)";
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setString(1, tipo.getCodigo());
+            sentencia.setInt(2, tipo.getCantidadPersonas());
+            sentencia.setInt(3, tipo.getCantidadCamas());
+            sentencia.setString(4, tipo.getTipoCama());
+            sentencia.setDouble(5, tipo.getPrecio());
+            int i = sentencia.executeUpdate();
             
-            if(resultado.next()){
-                tipo.setCodigo(resultado.getInt(1));
+            if(i == 1){
                 JOptionPane.showMessageDialog(null, "Se agrego un tipo de habitacion con exito");
             }
             
@@ -60,14 +58,14 @@ public class TipoHabitacionData extends Conexion {
         }
     }
     
-    public void cambiarPrecio(double precio, int codigo){
+    public void cambiarPrecio(double precio, String codigo){
         try{
             conectarBase();
             String sql = "UPDATE tipohabitacion SET precio = ? "
                     + "WHERE codigo = ?";
             sentencia = conexion.prepareStatement(sql);
             sentencia.setDouble(1, precio);
-            sentencia.setInt(2, codigo);
+            sentencia.setString(2, codigo);
             int i = sentencia.executeUpdate();
             if(i == 1)
                 JOptionPane.showMessageDialog(null, "Se actualizo el precio con exito");
@@ -89,7 +87,7 @@ public class TipoHabitacionData extends Conexion {
             resultado = sentencia.executeQuery();
             while(resultado.next()){
                 tipo = new TipoHabitacion();
-                tipo.setCodigo(resultado.getInt(1));
+                tipo.setCodigo(resultado.getString(1));
                 tipo.setCantidadPersonas(resultado.getInt(2));
                 tipo.setCantidadCamas(resultado.getInt(3));
                 tipo.setTipoCama(resultado.getString(4));

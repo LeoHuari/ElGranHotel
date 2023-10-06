@@ -3,13 +3,13 @@ package elgranhotel.Entidades;
 
 
 public class TipoHabitacion {
-    private int codigo;
+    private String codigo;
     private int cantidadPersonas;
     private int cantidadCamas;
     private String tipoCama;
     private double precio;
 
-    public TipoHabitacion(int codigo, int cantidadPersonas, int cantidadCamas, String tipoCama, double precio) {
+    public TipoHabitacion(String codigo, int cantidadPersonas, int cantidadCamas, String tipoCama, double precio) {
         this.codigo = codigo;
         this.cantidadPersonas = cantidadPersonas;
         this.cantidadCamas = cantidadCamas;
@@ -27,11 +27,11 @@ public class TipoHabitacion {
     public TipoHabitacion() {
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 

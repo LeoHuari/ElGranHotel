@@ -27,7 +27,7 @@ public class HabitacionData extends Conexion{
             if(resultado.next()){
                 habitacion.setIdHabitacion(resultado.getInt(1));
                 habitacion.setPiso(resultado.getInt(2));
-                habitacion.setTipoHabitacionCodigo(tipoData.buscarTipoHabitacion(resultado.getInt(3)));
+                habitacion.setTipoHabitacionCodigo(tipoData.buscarTipoHabitacion(resultado.getString(3)));
                 habitacion.setDisponibilidad(resultado.getBoolean(4));
                 habitacion.setEstado(resultado.getBoolean(5));
             }
@@ -40,17 +40,17 @@ public class HabitacionData extends Conexion{
     }
     
     public void agregarHabitacion(Habitacion habitacion){
-        String sql = "INSERT INTO habitacion (piso, tipoHabitacionCodigo, disponibilidad, estado) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO habitacion (idHabitacion, piso, tipoHabitacionCodigo, disponibilidad, estado) VALUES (?, ?, ?, ?, ?)";
         try{
-            sentencia = conexion.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            sentencia.setInt(1, habitacion.getPiso());
-            sentencia.setInt(2, habitacion.getTipoHabitacionCodigo().getCodigo());
-            sentencia.setBoolean(3, habitacion.isDisponibilidad());
-            sentencia.setBoolean(4, habitacion.isEstado());
-            sentencia.executeUpdate();
-            resultado = sentencia.getGeneratedKeys();
-            if(resultado.next()){
-                habitacion.setIdHabitacion(resultado.getInt(1));
+            conectarBase();
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, habitacion.getIdHabitacion());
+            sentencia.setInt(2, habitacion.getPiso());
+            sentencia.setString(3, habitacion.getTipoHabitacionCodigo().getCodigo());
+            sentencia.setBoolean(4, habitacion.isDisponibilidad());
+            sentencia.setBoolean(5, habitacion.isEstado());
+            int i = sentencia.executeUpdate();
+            if(i == 1){
                 JOptionPane.showMessageDialog(null, "Habitación agregada con éxito!");
             }
         }catch(SQLException ex){
@@ -112,7 +112,7 @@ public class HabitacionData extends Conexion{
             conectarBase();
             sentencia = conexion.prepareStatement(sql);
             sentencia.setInt(1, habitacion.getPiso());
-            sentencia.setInt(2, habitacion.getTipoHabitacionCodigo().getCodigo());
+            sentencia.setString(2, habitacion.getTipoHabitacionCodigo().getCodigo());
             sentencia.setBoolean(3, habitacion.isDisponibilidad());
             sentencia.setBoolean(4, habitacion.isEstado());
             sentencia.setInt(5, habitacion.getIdHabitacion());
@@ -142,7 +142,7 @@ public class HabitacionData extends Conexion{
                 habitacion = new Habitacion();
                 habitacion.setIdHabitacion(resultado.getInt(1));
                 habitacion.setPiso(resultado.getInt(2));
-                habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getInt(3));
+                habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getString(3));
                 habitacion.setDisponibilidad(resultado.getBoolean(4));
                 habitacion.setEstado(resultado.getBoolean(5));
                 lista.add(habitacion);
@@ -170,7 +170,7 @@ public class HabitacionData extends Conexion{
                 habitacion = new Habitacion();
                 habitacion.setIdHabitacion(resultado.getInt(1));
                 habitacion.setPiso(resultado.getInt(2));
-                habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getInt(3));
+                habitacion.getTipoHabitacionCodigo().setCodigo(resultado.getString(3));
                 habitacion.setDisponibilidad(resultado.getBoolean(4));
                 habitacion.setEstado(resultado.getBoolean(5));
                 lista.add(habitacion);

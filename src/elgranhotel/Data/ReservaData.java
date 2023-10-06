@@ -51,7 +51,7 @@ public class ReservaData extends Conexion {
             int i = sentencia.executeUpdate();
             if (i == 1) {
                 JOptionPane.showMessageDialog(null, "Se cancelo la reserva con exito");
-                habitacionData.disponibilidadHabitacion(reserva.getHabitacion());
+                //habitacionData.disponibilidadHabitacion(reserva.getHabitacion());
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en metodo crearReserva: " + ex);

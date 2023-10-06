@@ -31,10 +31,10 @@ public class HuespedData extends Conexion {
             sentencia.setString(1, huesped.getNombre());
             sentencia.setInt(2, huesped.getDni());
             sentencia.setString(3, huesped.getCorreo());
-            sentencia.setInt(4, huesped.getCelular());
+            sentencia.setString(4, huesped.getCelular());
             sentencia.setString(5, huesped.getDomicilio());
-            sentencia.setBoolean(5, huesped.isEstado());
-            sentencia.executeUpdate(sql);
+            sentencia.setBoolean(6, huesped.isEstado());
+            sentencia.executeUpdate();
             resultado = sentencia.getGeneratedKeys();
             if (resultado.next()) {
                 huesped.setIdHuesped(resultado.getInt(1));
@@ -68,10 +68,10 @@ public class HuespedData extends Conexion {
             sentencia.setString(1, huesped.getNombre());
             sentencia.setInt(2, huesped.getDni());
             sentencia.setString(3, huesped.getCorreo());
-            sentencia.setInt(4, huesped.getCelular());
+            sentencia.setString(4, huesped.getCelular());
             sentencia.setString(5, huesped.getDomicilio());
-            sentencia.setBoolean(5, huesped.isEstado());
-            sentencia.setInt(4, huesped.getIdHuesped());
+            sentencia.setBoolean(6, huesped.isEstado());
+            sentencia.setInt(7, huesped.getIdHuesped());
             int exito = sentencia.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Huesped Modificado");
@@ -101,7 +101,7 @@ public class HuespedData extends Conexion {
                 huesped.setNombre(resultado.getString("nombre"));
                 huesped.setDni(resultado.getInt("dni"));
                 huesped.setCorreo(resultado.getString("correo"));
-                huesped.setCelular(resultado.getInt("celular"));
+                huesped.setCelular(resultado.getString("celular"));
                 huesped.setDomicilio(resultado.getString("domicilio"));
                 huesped.setEstado(true);
             } else {
@@ -121,7 +121,7 @@ public class HuespedData extends Conexion {
     }
 
     public Huesped BuscarHuespedPorDNI(int dni) {
-        String sql = " SELECT nombre, dni, correo, celular, domicilio FROM huesped WHERE dni = ?";
+        String sql = " SELECT idHuesped, nombre, dni, correo, celular, domicilio FROM huesped WHERE dni = ?";
         try {
             conectarBase();
             sentencia = conexion.prepareStatement(sql);
@@ -133,7 +133,7 @@ public class HuespedData extends Conexion {
                 huesped.setNombre(resultado.getString("nombre"));
                 huesped.setDni(dni);
                 huesped.setCorreo(resultado.getString("correo"));
-                huesped.setCelular(resultado.getInt("celular"));
+                huesped.setCelular(resultado.getString("celular"));
                 huesped.setDomicilio(resultado.getString("domicilio"));
                 huesped.setEstado(true);
             } else {
@@ -152,8 +152,8 @@ public class HuespedData extends Conexion {
         return huesped;
     }
 
-    public ArrayList<Huesped> ListarHuesped(Huesped huesped) {
-        String sql = " SELECT nombre, dni, correo, celular, domicilio FROM huesped WHERE estado = 1";
+    public ArrayList<Huesped> ListarHuesped() {
+        String sql = " SELECT idHuesped, nombre, dni, correo, celular, domicilio FROM huesped WHERE estado = 1";
         ArrayList<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -166,7 +166,7 @@ public class HuespedData extends Conexion {
                 huesped.setNombre(resultado.getString("nombre"));
                 huesped.setDni(resultado.getInt("dni"));
                 huesped.setCorreo(resultado.getString("correo"));
-                huesped.setCelular(resultado.getInt("celular"));
+                huesped.setCelular(resultado.getString("celular"));
                 huesped.setDomicilio(resultado.getString("domicilio"));
                 huesped.setEstado(true);
 
