@@ -34,10 +34,10 @@ public class ElGranHotel {
         TipoHabitacion tipo2 = new TipoHabitacion("DQ", 2, 1, "Queen", 30.5);
         TipoHabitacion tipo3 = new TipoHabitacion("DS", 2, 2, "Simple", 30.5);
         TipoHabitacion tipo4 = new TipoHabitacion("TS", 3, 3, "Simple", 40.5);
-        TipoHabitacion tipo5 = new TipoHabitacion("TSQ", 3, 2, "Simple y Queen", 40.5);
-//        TipoHabitacion tipo6 = new TipoHabitacion("C2SQ", 4, 3, "Simple y Queen", 50.5);
-//        TipoHabitacion tipo7 = new TipoHabitacion("CS", 4, 4, "Simple", 50.5);
-//        TipoHabitacion tipo8 = new TipoHabitacion("SL", 2, 1, "KING SIZE", 200.5);
+        TipoHabitacion tipo5 = new TipoHabitacion("TSQ", 3, 2, "Simple y Queen", 40.5);//125
+        TipoHabitacion tipo6 = new TipoHabitacion("C2SQ", 4, 3, "Simple y Queen", 50.5);//150
+        TipoHabitacion tipo7 = new TipoHabitacion("CS", 4, 4, "Simple", 50.5);//175
+        TipoHabitacion tipo8 = new TipoHabitacion("SL", 2, 1, "KING SIZE", 200.5);//10
 //        tipoData.agregarTipoHabitacion(tipo1);
 //        tipoData.agregarTipoHabitacion(tipo2);
 //        tipoData.agregarTipoHabitacion(tipo3);
@@ -66,8 +66,28 @@ public class ElGranHotel {
 //            habitacion = new Habitacion(i, 2, tipo4, false, true);
 //            habitacionData.agregarHabitacion(habitacion);
 //        }
-        for(int i = 101; i<=125; i++){
-            habitacion = new Habitacion(i, 3, tipo5, false, true);
+//        for(int i = 101; i<=125; i++){
+//            habitacion = new Habitacion(i, 3, tipo5, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+//        for(int i = 126; i<=150; i++){
+//            habitacion = new Habitacion(i, 3, tipo6, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+//        for(int i = 151; i<=175; i++){
+//            habitacion = new Habitacion(i, 4, tipo7, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+//        for(int i = 176; i<=185; i++){
+//            habitacion = new Habitacion(i, 4, tipo1, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+//        for(int i = 186; i<=190; i++){
+//            habitacion = new Habitacion(i, 4, tipo2, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+        for(int i = 191; i<=200; i++){
+            habitacion = new Habitacion(i, 5, tipo8, false, true);
             habitacionData.agregarHabitacion(habitacion);
         }
     }
