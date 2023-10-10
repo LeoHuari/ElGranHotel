@@ -9,9 +9,6 @@ import javax.swing.JOptionPane;
 
 public class ReservaData extends Conexion {
 
-    private Huesped huesped;
-    private Habitacion habitacion;
-    private TipoHabitacion tipo;
     private HuespedData huespedData = new HuespedData();
     private HabitacionData habitacionData = new HabitacionData();
 
@@ -41,17 +38,16 @@ public class ReservaData extends Conexion {
             desconectarBase();
         }
     }
-
-    public void cancelarReserva(Reserva reserva) {
+    //Cambio a parametro de Reserva a int
+    public void cancelarReserva(int idReserva) {
         try {
             conectarBase();
-            String sql = "UPDATE reservas SET estado = 0 WHERE idReserva = ?";
+            String sql = "UPDATE reservas SET estado = 0 WHERE idReservas = ?";
             sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, reserva.getIdReserva());
+            sentencia.setInt(1, idReserva);
             int i = sentencia.executeUpdate();
             if (i == 1) {
                 JOptionPane.showMessageDialog(null, "Se cancelo la reserva con exito");
-                //habitacionData.disponibilidadHabitacion(reserva.getHabitacion());
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en metodo crearReserva: " + ex);
@@ -94,10 +90,11 @@ public class ReservaData extends Conexion {
         Reserva reserva;
         try {
             conectarBase();
-            String sql = "SELECT * FROM reservas WHERE fechaEntrada >= ? AND fechaSalida <= ? ";
+            //INTERSECCION CONJUNTOS STYLE
+            String sql = "SELECT * FROM reservas WHERE fechaEntrada <= ? AND fechaSalida >= ? AND estado = 1 ";
             sentencia = conexion.prepareStatement(sql);
-            sentencia.setDate(1, Date.valueOf(fechaEntrada));
-            sentencia.setDate(2, Date.valueOf(fechaSalida));
+            sentencia.setDate(2, Date.valueOf(fechaEntrada));
+            sentencia.setDate(1, Date.valueOf(fechaSalida));
             resultado = sentencia.executeQuery();
             while (resultado.next()) {
                 reserva = new Reserva();
@@ -119,5 +116,25 @@ public class ReservaData extends Conexion {
         return lista;
     }
     
+    public void finReserva(Reserva reserva){
+        try {
+            conectarBase();
+            String sql = "UPDATE reservas SET estado = 0 WHERE idReservas = ?";
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, reserva.getIdReserva());
+            int i = sentencia.executeUpdate();
+            if (i == 1) {
+                JOptionPane.showMessageDialog(null, "Se cancelo la reserva con exito");
+                habitacionData.disponibilidadHabitacion(reserva.getHabitacion());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error en metodo crearReserva: " + ex);
+        } finally {
+            desconectarBase();
+        }
+    }
     
+    //AGREGAR METODO buscarReservasCanceladas()
+    
+    //AGREGAR METODO buscarReservaPorID(int id)
 }

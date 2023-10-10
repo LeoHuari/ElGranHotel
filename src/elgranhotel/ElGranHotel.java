@@ -3,6 +3,9 @@ package elgranhotel;
 
 import elgranhotel.Data.*;
 import elgranhotel.Entidades.*;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 
 public class ElGranHotel {
@@ -12,6 +15,7 @@ public class ElGranHotel {
         HuespedData huespedData = new HuespedData();
         TipoHabitacionData tipoData = new TipoHabitacionData();
         HabitacionData habitacionData = new HabitacionData();
+        ReservaData reservaData = new ReservaData();
         //Huesped huesped1 = new Huesped ("Cristian March", 12345678, "correofalso@falsomail.com", "1123456789", "Calle Falsa 123", true);
         //Huesped huesped2 = new Huesped ("Leo Huari", 87654321, "correoverdadero@falsomail.com", "1123456711", "Calle Falsa 123", true);
         //Huesped huesped3 = new Huesped ("Aldana Alvarez", 11111111, "mailfalso@falsomail.com", "1523649874", "Calle Verdadera 333", true);
@@ -46,7 +50,7 @@ public class ElGranHotel {
 //        tipoData.agregarTipoHabitacion(tipo6);
 //        tipoData.agregarTipoHabitacion(tipo7);
 //        tipoData.agregarTipoHabitacion(tipo8);
-        Habitacion habitacion;
+//        Habitacion habitacion;
         
 //        for(int i = 1; i<=25; i++){
 //            habitacion = new Habitacion(i, 1, tipo1, false, true);
@@ -86,10 +90,45 @@ public class ElGranHotel {
 //            habitacion = new Habitacion(i, 4, tipo2, false, true);
 //            habitacionData.agregarHabitacion(habitacion);
 //        }
-        for(int i = 191; i<=200; i++){
-            habitacion = new Habitacion(i, 5, tipo8, false, true);
-            habitacionData.agregarHabitacion(habitacion);
-        }
+//        for(int i = 191; i<=200; i++){
+//            habitacion = new Habitacion(i, 5, tipo8, false, true);
+//            habitacionData.agregarHabitacion(habitacion);
+//        }
+
+//        Huesped huesped = huespedData.BuscarHuespedPorId(1);
+//        Habitacion habitacion = habitacionData.buscarHabitacion(1);
+//        LocalDate fechaEntrada = LocalDate.parse("2023-10-01");
+//        LocalDate fechaSalida = LocalDate.parse("2023-11-01");
+//        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+//        double importe = habitacion.getTipoHabitacionCodigo().getPrecio() * dias;
+//        System.out.println(importe);
+//        Reserva reserva = new Reserva(huesped, habitacion, 1, fechaEntrada, fechaSalida, importe, true);
+//        reservaData.crearReserva(reserva);
+
+        Huesped huesped = huespedData.BuscarHuespedPorId(1);
+        Habitacion habitacion = habitacionData.buscarHabitacion(1);
+//        LocalDate fechaEntrada = LocalDate.parse("2023-12-01");
+//        LocalDate fechaSalida = LocalDate.parse("2024-01-01");
+//        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+//        double importe = habitacion.getTipoHabitacionCodigo().getPrecio() * dias;
+//        Reserva reserva = new Reserva(huesped, habitacion, 1, fechaEntrada, fechaSalida, importe, true);
+//        reservaData.crearReserva(reserva);
+        
+//        Huesped huesped = huespedData.BuscarHuespedPorId(3);
+//        Habitacion habitacion = habitacionData.buscarHabitacion(5);
+//        LocalDate fechaEntrada = LocalDate.parse("2023-11-01");
+//        LocalDate fechaSalida = LocalDate.parse("2023-12-01");
+//        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+//        double importe = habitacion.getTipoHabitacionCodigo().getPrecio() * dias;
+//        Reserva reserva = new Reserva(huesped, habitacion, 1, fechaEntrada, fechaSalida, importe, true);
+//        reservaData.crearReserva(reserva);
+        
+//        System.out.println(reservaData.buscarReservaPorHuesped(1));
+//        System.out.println(reservaData.buscarReservasPorFecha(LocalDate.of(2023, Month.NOVEMBER, 1), LocalDate.parse("2023-11-01")));
+        
+//        reservaData.cancelarReserva(2);
+        Reserva reserva = new Reserva(1, huesped, habitacion, 1, LocalDate.parse("2023-10-01"), LocalDate.parse("2023-11-01"), 635.5, true);
+        reservaData.finReserva(reserva);
     }
     
 }

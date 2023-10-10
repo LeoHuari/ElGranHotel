@@ -5,8 +5,10 @@
 package elgranhotel.Data;
 
 import elgranhotel.Entidades.Habitacion;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -182,6 +184,36 @@ public class HabitacionData extends Conexion{
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion");
+        }
+        return lista;
+    }
+    
+    public ArrayList<Habitacion>listarHabitacionesPorFecha(LocalDate fechaEntrada, LocalDate fechaSalida){
+        ArrayList<Habitacion> lista = new ArrayList();
+        Habitacion habitacion;
+        try{
+            conectarBase();
+            String sql = "SELECT habitacion.* " +
+                "FROM reservas RIGHT JOIN habitacion ON (reservas.idHabitacion = habitacion.idHabitacion) AND (fechaEntrada <= ? AND fechaSalida >= ?) " +
+                "WHERE reservas.idHabitacion IS NULL AND reservas.estado = 1";
+            sentencia = conexion.prepareStatement(sql);
+            //INTERSECCION
+            sentencia.setDate(2, Date.valueOf(fechaEntrada));
+            sentencia.setDate(1, Date.valueOf(fechaSalida));
+            resultado = sentencia.executeQuery();
+            while(resultado.next()){
+                habitacion = new Habitacion();
+                habitacion.setIdHabitacion(resultado.getInt(1));
+                habitacion.setPiso(resultado.getInt(2));
+                habitacion.setTipoHabitacionCodigo(tipoData.buscarTipoHabitacion(resultado.getString(3)));
+                habitacion.setDisponibilidad(resultado.getBoolean(4));
+                habitacion.setEstado(resultado.getBoolean(5));
+                lista.add(habitacion);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error en el metodo listarHabitacionesPorFecha: "+ex);
+        }finally{
+            desconectarBase();
         }
         return lista;
     }

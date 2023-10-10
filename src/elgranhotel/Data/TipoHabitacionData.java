@@ -16,8 +16,9 @@ public class TipoHabitacionData extends Conexion {
         TipoHabitacion tipo = new TipoHabitacion();
         try{
             conectarBase();
-            String sql = "SELECT * FROM tipohabitacion WHERE codigo = " + codigo ;
+            String sql = "SELECT * FROM tipohabitacion WHERE codigo LIKE ?" ;
             sentencia = conexion.prepareStatement(sql);
+            sentencia.setString(1, codigo);
             resultado = sentencia.executeQuery();
             if(resultado.next()){
                 tipo.setCodigo(resultado.getString(1));
