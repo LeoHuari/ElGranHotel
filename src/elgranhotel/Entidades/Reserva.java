@@ -113,5 +113,4 @@ public class Reserva {
         return "Reserva{" + "huesped=" + huesped.getNombre() + ", habitacion=" + habitacion + ", cantPersonas=" + cantPersonas + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", importe=" + importe + ", estado=" + estado + '}'+"\n";
     }
 
-    
 }

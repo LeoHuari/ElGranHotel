@@ -134,7 +134,6 @@ public class ReservaData extends Conexion {
         }
     }
     
-    //AGREGAR METODO buscarReservasCanceladas()
     public ArrayList<Reserva> buscarReservasCanceladas(){
         ArrayList<Reserva> lista = new ArrayList();
         Reserva reserva;
@@ -163,12 +162,11 @@ public class ReservaData extends Conexion {
         return lista;
     }
     
-    //AGREGAR METODO buscarReservaPorID(int id)
     public Reserva buscarReservaPorIdD(int id){
         Reserva reserva = new Reserva();
         try{
             conectarBase();
-            String sql = "SELECT * FROM reserva WHERE idReservas = ? AND estado = 1";
+            String sql = "SELECT * FROM reservas WHERE idReservas = ? AND estado = 1";
             sentencia = conexion.prepareStatement(sql);
             sentencia.setInt(1, id);
             resultado = sentencia.executeQuery();

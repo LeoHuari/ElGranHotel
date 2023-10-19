@@ -6,12 +6,15 @@ import elgranhotel.Entidades.*;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import javax.swing.JOptionPane;
 
 
 public class ElGranHotel {
 
     
     public static void main(String[] args) {
+        //Tener en mente Mantenimiento a habitaciones
+        
         HuespedData huespedData = new HuespedData();
         TipoHabitacionData tipoData = new TipoHabitacionData();
         HabitacionData habitacionData = new HabitacionData();
@@ -127,8 +130,16 @@ public class ElGranHotel {
 //        System.out.println(reservaData.buscarReservasPorFecha(LocalDate.of(2023, Month.NOVEMBER, 1), LocalDate.parse("2023-11-01")));
         
 //        reservaData.cancelarReserva(2);
-        Reserva reserva = new Reserva(1, huesped, habitacion, 1, LocalDate.parse("2023-10-01"), LocalDate.parse("2023-11-01"), 635.5, true);
-        reservaData.finReserva(reserva);
+//        Reserva reserva = new Reserva(1, huesped, habitacion, 1, LocalDate.parse("2023-10-01"), LocalDate.parse("2023-11-01"), 635.5, true);
+//        reservaData.finReserva(reserva);
+
+//        System.out.println(reservaData.buscarReservasCanceladas());
+//        try{
+//            System.out.println(reservaData.buscarReservaPorIdD(1));
+//        }catch(NullPointerException ex){
+//            JOptionPane.showMessageDialog(null, "No existe la reserva");
+//        }
+        
     }
     
 }
