@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
     Recepcion recepcion = new Recepcion();
     CrearReservas crearReserva = new CrearReservas();
     AdministrarReservas adReservas = new AdministrarReservas();
+    Habitaciones rooms = new Habitaciones();
+    Huespedes guest = new Huespedes();
     /**
      * Creates new form Principal
      */
@@ -28,6 +30,8 @@ public class Principal extends javax.swing.JFrame {
         jtpVentanas.addTab("Recepcion", recepcion);
         jtpVentanas.addTab("Reservas", crearReserva);
         jtpVentanas.addTab("AdReserva", adReservas);
+        jtpVentanas.addTab("Rooms", rooms);
+        jtpVentanas.addTab("Guest", guest);
         jtpVentanas.setTabPlacement(JTabbedPane.LEFT);
     }
 
@@ -59,10 +63,10 @@ public class Principal extends javax.swing.JFrame {
         );
         jpBotoneraLayout.setVerticalGroup(
             jpBotoneraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1030, Short.MAX_VALUE)
+            .addGap(0, 1028, Short.MAX_VALUE)
         );
 
-        jpPrimero.add(jpBotonera, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 1030));
+        jpPrimero.add(jpBotonera, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 1028));
         jpPrimero.add(jtpVentanas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 1050, 1028));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
