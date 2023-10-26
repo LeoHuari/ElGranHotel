@@ -55,15 +55,15 @@ public class ReservaData extends Conexion {
             desconectarBase();
         }
     }
-
-    public ArrayList<Reserva> buscarReservaPorHuesped(int idHuesped) {
+    // Se cambio el parametro de idHuesped a dni
+    public ArrayList<Reserva> buscarReservaPorHuesped(int dni) {
         ArrayList<Reserva> lista = new ArrayList();
         Reserva reserva;
         try {
             conectarBase();
-            String sql = "SELECT * FROM reservas WHERE idHuesped = ? AND estado = 1";
+            String sql = "SELECT * FROM reservas WHERE dni = ? AND estado = 1";
             sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, idHuesped);
+            sentencia.setInt(1, dni);
             resultado = sentencia.executeQuery();
             while (resultado.next()) {
                 reserva = new Reserva();
@@ -187,4 +187,6 @@ public class ReservaData extends Conexion {
         }
         return reserva;
     }
+    
+    //Agregar listar reservas(activas)
 }
