@@ -153,7 +153,7 @@ public class HuespedData extends Conexion {
     }
 
     public ArrayList<Huesped> ListarHuesped() {
-        String sql = " SELECT idHuesped, nombre, dni, correo, celular, domicilio FROM huesped WHERE estado = 1";
+        String sql = " SELECT idHuesped, nombre, dni, correo, celular, domicilio, estado FROM huesped";
         ArrayList<Huesped> huespedes = new ArrayList<>();
 
         try {
@@ -168,7 +168,7 @@ public class HuespedData extends Conexion {
                 huesped.setCorreo(resultado.getString("correo"));
                 huesped.setCelular(resultado.getString("celular"));
                 huesped.setDomicilio(resultado.getString("domicilio"));
-                huesped.setEstado(true);
+                huesped.setEstado(resultado.getBoolean("estado"));
 
                 huespedes.add(huesped);
             }

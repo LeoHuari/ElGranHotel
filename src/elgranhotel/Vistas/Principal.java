@@ -45,13 +45,14 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jpPrimero = new javax.swing.JPanel();
-        jpBotonera = new javax.swing.JPanel();
         jtpVentanas = new javax.swing.JTabbedPane();
+        jpBotonera = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1280, 1024));
 
         jpPrimero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpPrimero.add(jtpVentanas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 1050, 1028));
 
         jpBotonera.setBackground(new java.awt.Color(51, 0, 204));
 
@@ -67,7 +68,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jpPrimero.add(jpBotonera, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 1028));
-        jpPrimero.add(jtpVentanas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 1050, 1028));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

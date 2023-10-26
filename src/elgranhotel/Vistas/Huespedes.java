@@ -35,7 +35,7 @@ public class Huespedes extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1080, Short.MAX_VALUE)
+            .addGap(0, 1024, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
