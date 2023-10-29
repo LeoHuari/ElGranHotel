@@ -139,7 +139,7 @@ public class ElGranHotel {
 //        }catch(NullPointerException ex){
 //            JOptionPane.showMessageDialog(null, "No existe la reserva");
 //        }
-        
+//        reservaData.calcularImporte(fechaEntrada, fechaSalida);
     }
     
 }

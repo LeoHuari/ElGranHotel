@@ -4,6 +4,7 @@ import elgranhotel.Entidades.*;
 import java.sql.Date;
 import java.sql.Statement;
 import java.time.LocalDate;
+import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -188,5 +189,9 @@ public class ReservaData extends Conexion {
         return reserva;
     }
     
-    //Agregar listar reservas(activas)
+    public double calcularImporte(LocalDate fechaIn, LocalDate fechaOut, TipoHabitacion tipo){
+        long dias = DAYS.between(fechaIn, fechaOut);
+        double importe =  dias * tipo.getPrecio();
+        return importe;
+    }
 }

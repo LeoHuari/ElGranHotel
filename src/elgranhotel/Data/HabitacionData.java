@@ -194,8 +194,8 @@ public class HabitacionData extends Conexion{
         try{
             conectarBase();
             String sql = "SELECT habitacion.* " +
-                "FROM reservas RIGHT JOIN habitacion ON (reservas.idHabitacion = habitacion.idHabitacion) AND (fechaEntrada <= ? AND fechaSalida >= ?) " +
-                "WHERE reservas.idHabitacion IS NULL AND reservas.estado = 1";
+                "FROM reservas RIGHT JOIN habitacion ON (reservas.idHabitacion = habitacion.idHabitacion) AND (fechaEntrada <= ? AND fechaSalida >= ?)  AND reservas.estado = 1 " +
+                "WHERE reservas.idHabitacion IS NULL ";
             sentencia = conexion.prepareStatement(sql);
             //INTERSECCION
             sentencia.setDate(2, Date.valueOf(fechaEntrada));
