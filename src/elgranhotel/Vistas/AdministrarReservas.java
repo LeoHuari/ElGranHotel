@@ -39,9 +39,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate fechaIngreso = null;
     private LocalDate fechaSalida = null;
+    private LocalDate fechaInMod = null;
+    private LocalDate fechaOutMod = null;
     private ArrayList<Reserva> listaReservas = reservaData.listarReservas();
     private Reserva reserva = null;
 
+    
     public AdministrarReservas() {
         initComponents();
         armarTablaReservas();
@@ -82,7 +85,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtHabitaciones = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbFiltroTipos = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jbCancelarMod = new javax.swing.JButton();
         jbGuardarMod = new javax.swing.JButton();
@@ -107,14 +110,19 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jtCantPersMod.setEditable(false);
         jtCantPersMod.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        jtNroHabMod.setEditable(false);
         jtNroHabMod.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        jtNroReserva.setEditable(false);
         jtNroReserva.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel5.setText("Reserva numero :");
+
+        jtHuespedMod.setEditable(false);
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setText("Huesped:");
@@ -129,19 +137,40 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jLabel9.setText("Fecha de Ingreso:");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel10.setText("Numero de habitación:");
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel10.setText("Habitación:");
 
         ComprobarFechaOut.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         ComprobarFechaOut.setText("Comprobar");
+        ComprobarFechaOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComprobarFechaOutActionPerformed(evt);
+            }
+        });
 
         jbComprobarFechaIn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbComprobarFechaIn.setText("Comprobar");
+        jbComprobarFechaIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbComprobarFechaInActionPerformed(evt);
+            }
+        });
 
         jbCambiarCantPers.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbCambiarCantPers.setText("Cambiar");
+        jbCambiarCantPers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCambiarCantPersActionPerformed(evt);
+            }
+        });
 
         jbCambiarNroHab.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbCambiarNroHab.setText("Cambiar");
+        jbCambiarNroHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCambiarNroHabActionPerformed(evt);
+            }
+        });
 
         jtHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,14 +188,24 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Habitaciones disponibles en la fecha ingresada");
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "S", "DS", "DQ", "TS", "TSQ", "CS", "C2SQ", "SL" }));
+        jcbFiltroTipos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jcbFiltroTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "S", "DS", "DQ", "TS", "TSQ", "CS", "C2SQ", "SL" }));
+        jcbFiltroTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbFiltroTiposActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setText("Tipo Habitaciones:");
 
         jbCancelarMod.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbCancelarMod.setText("Cancelar cambios");
+        jbCancelarMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarModActionPerformed(evt);
+            }
+        });
 
         jbGuardarMod.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbGuardarMod.setText("Guardar cambios");
@@ -202,27 +241,13 @@ public class AdministrarReservas extends javax.swing.JPanel {
                         .addGap(61, 61, 61)
                         .addComponent(ComprobarFechaOut))
                     .addGroup(jpModificacionesLayout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel8)
-                        .addGap(22, 22, 22)
-                        .addComponent(jtCantPersMod, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(jbCambiarCantPers))
-                    .addGroup(jpModificacionesLayout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel10)
-                        .addGap(22, 22, 22)
-                        .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(jbCambiarNroHab))
-                    .addGroup(jpModificacionesLayout.createSequentialGroup()
                         .addGap(300, 300, 300)
                         .addComponent(jLabel11))
                     .addGroup(jpModificacionesLayout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jcbFiltroTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpModificacionesLayout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -230,7 +255,20 @@ public class AdministrarReservas extends javax.swing.JPanel {
                         .addGap(253, 253, 253)
                         .addComponent(jbCancelarMod)
                         .addGap(134, 134, 134)
-                        .addComponent(jbGuardarMod)))
+                        .addComponent(jbGuardarMod))
+                    .addGroup(jpModificacionesLayout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8))
+                        .addGap(22, 22, 22)
+                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtCantPersMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNroHabMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61)
+                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbCambiarCantPers, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jbCambiarNroHab, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(90, 90, 90))
         );
         jpModificacionesLayout.setVerticalGroup(
@@ -267,19 +305,16 @@ public class AdministrarReservas extends javax.swing.JPanel {
                         .addComponent(jLabel8))
                     .addComponent(jtCantPersMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCambiarCantPers))
-                .addGap(35, 35, 35)
-                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbCambiarNroHab)
-                    .addGroup(jpModificacionesLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(73, 73, 73)
+                .addGap(41, 41, 41)
+                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jbCambiarNroHab))
+                .addGap(69, 69, 69)
                 .addComponent(jLabel11)
                 .addGap(31, 31, 31)
                 .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbFiltroTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -484,6 +519,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        if(reserva == null){
+            JOptionPane.showMessageDialog(null, "Debeb haber seleccionado una reserva");
+            return;
+        }
+        
         jpModificaciones.setVisible(true);
         jpPrincipal.setVisible(false);
         jtNroReserva.setText(reserva.getIdReserva()+"");
@@ -492,6 +532,8 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
         jtCantPersMod.setText(reserva.getCantPersonas()+"");
         jtNroHabMod.setText(reserva.getHabitacion().getIdHabitacion()+"");
+        fechaInMod = reserva.getFechaEntrada();
+        fechaOutMod = reserva.getFechaSalida();
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcbFiltrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltrarPorActionPerformed
@@ -505,6 +547,8 @@ public class AdministrarReservas extends javax.swing.JPanel {
             jpPorHuesped.setVisible(false);
             jpPorFechas.setVisible(true);
         }
+        //Agregar filtro de actividades diarias
+        //Agregar filtro de reservas pendientes, si fecha ingreso es menor a fecha del dia y habitacion esta libre
     }//GEN-LAST:event_jcbFiltrarPorActionPerformed
 
     private void jtBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscadorKeyReleased
@@ -582,26 +626,114 @@ public class AdministrarReservas extends javax.swing.JPanel {
             return;
         }
         
+        borrarFilasReservas();
         cargarTablaReservasPorFechas();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         int j = JOptionPane.showConfirmDialog(null, "Esta seguro que desea cancelar la Reserva?", "Cancelando Reserva", JOptionPane.YES_NO_OPTION);
         if(j == 0){
-            int i = jtReservas.getSelectedRow() - 1;
+            int i = jtReservas.getSelectedRow();
             reservaData.cancelarReserva((int)jtReservas.getValueAt(i, 0));
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtReservasMouseClicked
-        int i = jtReservas.getSelectedRow() - 1;
+        int i = jtReservas.getSelectedRow();
         reserva = reservaData.buscarReservaPorIdD((int)jtReservas.getValueAt(i, 0));
     }//GEN-LAST:event_jtReservasMouseClicked
+
+    private void jbCambiarNroHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarNroHabActionPerformed
+        borrarFilasHabitaciones();
+        cargarTablaHabitaciones();
+        jcbFiltroTipos.setSelectedIndex(0);
+    }//GEN-LAST:event_jbCambiarNroHabActionPerformed
+
+    private void jbCancelarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarModActionPerformed
+        jpModificaciones.setVisible(false);
+        jpPrincipal.setVisible(true);
+        jtNroReserva.setText("");
+        jtHuespedMod.setText("");
+        jdcFechaInMod.setDate(null);
+        jdcFechaOutMod.setDate(null);
+        jtCantPersMod.setText("");
+        jtNroHabMod.setText("");
+    }//GEN-LAST:event_jbCancelarModActionPerformed
+
+    private void jbCambiarCantPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarCantPersActionPerformed
+        String numPers = JOptionPane.showInputDialog("Ingrese el numero de personas:");
+        
+        if(!numPers.matches("\\d+")){
+            JOptionPane.showMessageDialog(null, "Solo se admiten numeros enteros");
+            return;
+        }
+        
+        int nPersMod = Integer.parseInt(numPers);
+        
+        if (nPersMod > reserva.getHabitacion().getTipoHabitacionCodigo().getCantidadPersonas()){
+            JOptionPane.showMessageDialog(null, "No entran esta cantidad de personas en este tipo de habitación");
+            return;
+        }
+        
+        jtCantPersMod.setText(numPers);
+    }//GEN-LAST:event_jbCambiarCantPersActionPerformed
+
+    private void jbComprobarFechaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComprobarFechaInActionPerformed
+        if(!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())){
+            JOptionPane.showMessageDialog(null, "La Fecha de Ingreso no puede ser mayor que la Fecha de Salida");
+            jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
+            return;
+        }
+        
+        fechaInMod = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int h = reserva.getHabitacion().getIdHabitacion();
+        ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
+       
+        if(lista.isEmpty()){
+            JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
+            reserva.setFechaEntrada(fechaInMod);
+        }else{
+            JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
+            jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
+            fechaInMod = reserva.getFechaEntrada();
+        }
+    }//GEN-LAST:event_jbComprobarFechaInActionPerformed
+
+    private void ComprobarFechaOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprobarFechaOutActionPerformed
+        if(!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())){
+            JOptionPane.showMessageDialog(null, "La Fecha de Ingreso no puede ser mayor que la Fecha de Salida");
+            jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
+            return;
+        }
+        
+        fechaOutMod = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int h = reserva.getHabitacion().getIdHabitacion();
+        ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
+        
+        if(lista.isEmpty()){
+            JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
+            reserva.setFechaSalida(fechaOutMod);
+        }else{
+            JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
+            jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
+            fechaOutMod = reserva.getFechaSalida();
+        }
+    }//GEN-LAST:event_ComprobarFechaOutActionPerformed
+
+    private void jcbFiltroTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroTiposActionPerformed
+        borrarFilasHabitaciones();
+        
+        String codigo = jcbFiltroTipos.getSelectedItem().toString();
+        
+        if(codigo.equals("Todas")){
+            cargarTablaHabitaciones();
+            return;
+        }
+    }//GEN-LAST:event_jcbFiltroTiposActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ComprobarFechaOut;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -626,6 +758,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private javax.swing.JButton jbModificar;
     private javax.swing.JComboBox<String> jcbFiltrarPor;
     private javax.swing.JComboBox<String> jcbFiltroHuesped;
+    private javax.swing.JComboBox<String> jcbFiltroTipos;
     private com.toedter.calendar.JDateChooser jdcFechaIn;
     private com.toedter.calendar.JDateChooser jdcFechaInMod;
     private com.toedter.calendar.JDateChooser jdcFechaOut;
@@ -705,7 +838,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }
 
     private void cargarTablaHabitaciones() {
-        ArrayList<Habitacion> lista = habitacionData.listarHabitacionesPorFecha(fechaIngreso, fechaSalida);
+        ArrayList<Habitacion> lista = habitacionData.listarHabitacionesPorFecha(fechaInMod, fechaOutMod);
         for (Habitacion habitacion : lista) {
             modeloHabitaciones.addRow(new Object[]{
                 habitacion.getIdHabitacion(),
