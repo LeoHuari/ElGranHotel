@@ -194,4 +194,32 @@ public class ReservaData extends Conexion {
         double importe =  dias * tipo.getPrecio();
         return importe;
     }
+    
+    public ArrayList<Reserva> listarReservas(){
+         ArrayList<Reserva> lista = new ArrayList();
+        Reserva reserva;
+        try{
+            conectarBase();
+            String sql = "SELECT * FROM reservas WHERE estado = 1";
+            sentencia = conexion.prepareStatement(sql);
+            resultado = sentencia.executeQuery();
+            while(resultado.next()){
+                reserva = new Reserva();
+                reserva.setIdReserva(resultado.getInt(1));
+                reserva.setHuesped(huespedData.BuscarHuespedPorId(resultado.getInt(2)));
+                reserva.setHabitacion(habitacionData.buscarHabitacion(resultado.getInt(3)));
+                reserva.setCantPersonas(resultado.getInt(4));
+                reserva.setFechaEntrada(resultado.getDate(5).toLocalDate());
+                reserva.setFechaSalida(resultado.getDate(6).toLocalDate());
+                reserva.setImporte(resultado.getDouble(7));
+                reserva.setEstado(resultado.getBoolean(8));
+                lista.add(reserva);
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null, "Error en el metodo buscarReservasCanceladas: "+ex);
+        }finally{
+            desconectarBase();
+        }
+        return lista;
+    }
 }
