@@ -76,7 +76,6 @@ public class HuespedData extends Conexion {
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Huesped Modificado");
             }
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped" + ex.getMessage());
         } finally {
