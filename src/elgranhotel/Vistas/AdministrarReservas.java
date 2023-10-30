@@ -688,8 +688,10 @@ public class AdministrarReservas extends javax.swing.JPanel {
         fechaInMod = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
-       
-        if(lista.isEmpty()){
+        
+        int i = lista.size() - 1;
+        
+        if(i == 0){
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaEntrada(fechaInMod);
         }else{
@@ -701,7 +703,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
     private void ComprobarFechaOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprobarFechaOutActionPerformed
         if(!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())){
-            JOptionPane.showMessageDialog(null, "La Fecha de Ingreso no puede ser mayor que la Fecha de Salida");
+            JOptionPane.showMessageDialog(null, "La Fecha de Salida no puede ser menor que la Fecha de Ingreso");
             jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
             return;
         }
@@ -710,7 +712,9 @@ public class AdministrarReservas extends javax.swing.JPanel {
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
         
-        if(lista.isEmpty()){
+        int i = lista.size() - 1;
+        
+        if(i == 0){
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaSalida(fechaOutMod);
         }else{
