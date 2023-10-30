@@ -254,4 +254,28 @@ public class ReservaData extends Conexion {
         }
         return lista;
     }
+
+    public void modificarReserva(Reserva reserva){
+        String sql = "UPDATE reservas SET idHabitacion = ?, cantPersona = ?, fechaEntrada = ?, fechaSalida = ?, importe = ?, estado = ? "
+                + "WHERE idReservas = ? ";
+        conectarBase();
+        try{
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, reserva.getHabitacion().getIdHabitacion());
+            sentencia.setInt(2, reserva.getCantPersonas());
+            sentencia.setDate(3, Date.valueOf(reserva.getFechaEntrada()));
+            sentencia.setDate(4, Date.valueOf(reserva.getFechaSalida()));
+            sentencia.setDouble(5, reserva.getImporte());
+            sentencia.setBoolean(6, reserva.isEstado());
+            sentencia.setInt(7, reserva.getIdReserva());
+            int exito = sentencia.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva modificada con exito");
+            }
+        }catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Error en el metodo modificarReserva: "+ex);
+        }finally{
+            desconectarBase();
+        }
+    }
 }
