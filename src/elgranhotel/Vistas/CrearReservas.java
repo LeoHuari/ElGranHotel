@@ -612,6 +612,7 @@ public class CrearReservas extends javax.swing.JPanel {
                     existe
                 });
             }
+            return;
         }
 
         for (Habitacion habitacion : listaHabitaciones) {
