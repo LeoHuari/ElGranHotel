@@ -9,6 +9,8 @@ import elgranhotel.Data.HabitacionData;
 import elgranhotel.Data.ReservaData;
 import elgranhotel.Entidades.Habitacion;
 import elgranhotel.Entidades.Reserva;
+import static elgranhotel.Vistas.CrearReservas.traerReserva;
+import static elgranhotel.Vistas.Principal.cambiarVentanaAReservas;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
@@ -36,6 +38,7 @@ public class Recepcion extends javax.swing.JPanel {
     private HabitacionData habitacionData = new HabitacionData();
     private ArrayList<Reserva> lista = new ArrayList();
     private Habitacion habitacion = new Habitacion();
+    private Reserva reservaNueva = new Reserva();
 
     private DefaultTableModel modeloHuesped = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
@@ -58,6 +61,7 @@ public class Recepcion extends javax.swing.JPanel {
         jbCheckIn.setEnabled(false);
         jbCheckOut.setEnabled(false);
         jbExtender.setEnabled(false);
+        jbCambiarHab.setEnabled(false);
         agregarListSelectionListener();
         agregarListener_dchFin();
         jbComprobarDisponibilidad.setEnabled(false);
@@ -88,10 +92,9 @@ public class Recepcion extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jbComprobarDisponibilidad = new javax.swing.JButton();
-        jPconfirmacion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jlCantDias = new javax.swing.JLabel();
         jtfCantDias = new javax.swing.JTextField();
+        jbCambiarHab = new javax.swing.JButton();
         jpCheckOut = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -223,29 +226,19 @@ public class Recepcion extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPconfirmacionLayout = new javax.swing.GroupLayout(jPconfirmacion);
-        jPconfirmacion.setLayout(jPconfirmacionLayout);
-        jPconfirmacionLayout.setHorizontalGroup(
-            jPconfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPconfirmacionLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-        jPconfirmacionLayout.setVerticalGroup(
-            jPconfirmacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPconfirmacionLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
-        );
-
         jlCantDias.setText("Cantidad de dias:");
 
         jtfCantDias.setEditable(false);
         jtfCantDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfCantDiasActionPerformed(evt);
+            }
+        });
+
+        jbCambiarHab.setText("Cambiar Habitación");
+        jbCambiarHab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCambiarHabActionPerformed(evt);
             }
         });
 
@@ -264,9 +257,6 @@ public class Recepcion extends javax.swing.JPanel {
                         .addGap(396, 396, 396)
                         .addComponent(jLabel3))
                     .addGroup(jpExtenderLayout.createSequentialGroup()
-                        .addGap(235, 235, 235)
-                        .addComponent(jPconfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpExtenderLayout.createSequentialGroup()
                         .addGap(331, 331, 331)
                         .addGroup(jpExtenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jlCantDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -278,10 +268,12 @@ public class Recepcion extends javax.swing.JPanel {
                             .addGroup(jpExtenderLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jtfCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(327, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpExtenderLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jbComprobarDisponibilidad)
+                .addGroup(jpExtenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jbCambiarHab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jbComprobarDisponibilidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(400, 400, 400))
         );
         jpExtenderLayout.setVerticalGroup(
@@ -305,8 +297,8 @@ public class Recepcion extends javax.swing.JPanel {
                     .addComponent(jtfCantDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jbComprobarDisponibilidad)
-                .addGap(31, 31, 31)
-                .addComponent(jPconfirmacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbCambiarHab)
                 .addContainerGap())
         );
 
@@ -484,8 +476,14 @@ public class Recepcion extends javax.swing.JPanel {
         //compruebo si la lista esta vacia
         if (listaReservasPeriodo.isEmpty()) {
             //de ser asi, procedo a extender la reserva.
-            reservaSeleccionada.setFechaSalida(fin);
-            reservaData.modificarReserva(reservaSeleccionada);
+             double importeNuevo = reservaData.calcularImporte(reservaSeleccionada.getFechaEntrada(), fin, reservaSeleccionada.getHabitacion().getTipoHabitacionCodigo());
+                    int opcion = JOptionPane.showConfirmDialog(null, "Confirma la extension de la estadia " + jtfCantDias.getText() + " Dias \n Hasta " + fin +"\n Importe Actualizado : " + importeNuevo , "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        // Llama a tu método aquí
+                       reservaSeleccionada.setFechaSalida(fechaMenor);
+                       reservaSeleccionada.setImporte(importeNuevo);
+                       reservaData.modificarReserva(reservaSeleccionada);
+                    }
 
         } else {
             //si no, remuevo a la reserva de la lista de resrvars en ese periodo
@@ -499,8 +497,15 @@ public class Recepcion extends javax.swing.JPanel {
             //vuelvo a comprobar si la lista esta vacia
             if (listaReservasPeriodo.isEmpty()) {
                 //de ser asi, procedo a extender la reserva.
-                reservaSeleccionada.setFechaSalida(fin);
-                reservaData.modificarReserva(reservaSeleccionada);
+                double importeNuevo = reservaData.calcularImporte(reservaSeleccionada.getFechaEntrada(), fin, reservaSeleccionada.getHabitacion().getTipoHabitacionCodigo());
+                    int opcion = JOptionPane.showConfirmDialog(null, "Confirma la extension de la estadia " + jtfCantDias.getText() + " Dias \n Hasta " + fin +"\n Importe Actualizado : " + importeNuevo , "Confirmación", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        // Llama a tu método aquí
+                       reservaSeleccionada.setFechaSalida(fechaMenor);
+                       reservaSeleccionada.setImporte(importeNuevo);
+                       reservaData.modificarReserva(reservaSeleccionada);
+                    }
+
             } else {
                 //si no, compruebo cuantos dias esta disponible
                 //primero me quedo con la fecha menor de las reservas dentro del periodo
@@ -512,12 +517,17 @@ public class Recepcion extends javax.swing.JPanel {
                 }
                 if (fechaMenor.equals(inicio)) {
                     JOptionPane.showMessageDialog(null, "La habitacion no esta disponible");
+                    jbCambiarHab.setEnabled(true);
+                    reservaSeleccionada.setFechaSalida(fin);
+                    reservaNueva=reservaSeleccionada;
+                    
                 } else {
                     diasDisponibles = DAYS.between(inicio, fechaMenor);
                     double importeNuevo = reservaData.calcularImporte(reservaSeleccionada.getFechaEntrada(), fechaMenor, reservaSeleccionada.getHabitacion().getTipoHabitacionCodigo());
                     int opcion = JOptionPane.showConfirmDialog(null, "La habitacion esta disponible por " + diasDisponibles + " Dias \n Hasta " + fechaMenor+"\n Importe total: "+importeNuevo+" \n Desea extender de todos modos?", "Confirmación", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
                         // Llama a tu método aquí
+                       reservaSeleccionada.setImporte(importeNuevo);
                        reservaSeleccionada.setFechaSalida(fechaMenor);
                        reservaData.modificarReserva(reservaSeleccionada);
                     }
@@ -531,6 +541,13 @@ public class Recepcion extends javax.swing.JPanel {
     private void jtfCantDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfCantDiasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfCantDiasActionPerformed
+
+    private void jbCambiarHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarHabActionPerformed
+            cambiarVentanaAReservas();
+            int id = reservaNueva.getIdReserva();
+            traerReserva(reservaNueva,id );
+            
+    }//GEN-LAST:event_jbCambiarHabActionPerformed
 
     //Metodo para capturar la seleccion de la tabla
     //jtReservas.getSelectionModel().addListSelectionListener agrega un ListSelectionListener a la tabla.
@@ -588,7 +605,6 @@ public class Recepcion extends javax.swing.JPanel {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -596,8 +612,8 @@ public class Recepcion extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPconfirmacion;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbCambiarHab;
     private javax.swing.JButton jbCheckIn;
     private javax.swing.JButton jbCheckOut;
     private javax.swing.JButton jbComprobarDisponibilidad;
