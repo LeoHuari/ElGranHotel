@@ -46,7 +46,6 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private Reserva reserva = null;
 
-    
     public AdministrarReservas() {
         initComponents();
         armarTablaReservas();
@@ -106,6 +105,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jbBuscar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jpHoy = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jpPendientes = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jpAtrasados = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
         jcbFiltrarPor = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -413,7 +418,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
                 .addComponent(jcbFiltroHuesped, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jpPorHuespedLayout.setVerticalGroup(
             jpPorHuespedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -450,7 +455,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jdcFechaIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jdcFechaOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,8 +481,74 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
         jpFondoDePaneles.add(jpPorFechas, "card2");
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel15.setText("Reservas que inician o terminan el dia de hoy");
+
+        javax.swing.GroupLayout jpHoyLayout = new javax.swing.GroupLayout(jpHoy);
+        jpHoy.setLayout(jpHoyLayout);
+        jpHoyLayout.setHorizontalGroup(
+            jpHoyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpHoyLayout.createSequentialGroup()
+                .addContainerGap(221, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(199, 199, 199))
+        );
+        jpHoyLayout.setVerticalGroup(
+            jpHoyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpHoyLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
+
+        jpFondoDePaneles.add(jpHoy, "card4");
+
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel16.setText("Reservas que no iniciaron en la fecha prevista");
+
+        javax.swing.GroupLayout jpPendientesLayout = new javax.swing.GroupLayout(jpPendientes);
+        jpPendientes.setLayout(jpPendientesLayout);
+        jpPendientesLayout.setHorizontalGroup(
+            jpPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPendientesLayout.createSequentialGroup()
+                .addContainerGap(216, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(199, 199, 199))
+        );
+        jpPendientesLayout.setVerticalGroup(
+            jpPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPendientesLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
+
+        jpFondoDePaneles.add(jpPendientes, "card5");
+
+        jLabel17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel17.setText("Reservas que no finalizaron en la fecha prevista");
+
+        javax.swing.GroupLayout jpAtrasadosLayout = new javax.swing.GroupLayout(jpAtrasados);
+        jpAtrasados.setLayout(jpAtrasadosLayout);
+        jpAtrasadosLayout.setHorizontalGroup(
+            jpAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpAtrasadosLayout.createSequentialGroup()
+                .addContainerGap(201, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(199, 199, 199))
+        );
+        jpAtrasadosLayout.setVerticalGroup(
+            jpAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpAtrasadosLayout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
+        );
+
+        jpFondoDePaneles.add(jpAtrasados, "card6");
+
         jcbFiltrarPor.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jcbFiltrarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Huesped", "Fechas" }));
+        jcbFiltrarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Huesped", "Fechas", "Del día", "Pendientes", "Atrasados" }));
         jcbFiltrarPor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbFiltrarPorActionPerformed(evt);
@@ -532,24 +603,24 @@ public class AdministrarReservas extends javax.swing.JPanel {
             .addGroup(jpPrincipalLayout.createSequentialGroup()
                 .addGroup(jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpPrincipalLayout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(jcbFiltrarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpPrincipalLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addGroup(jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jpFondoDePaneles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)))
                     .addGroup(jpPrincipalLayout.createSequentialGroup()
-                        .addGap(319, 319, 319)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpPrincipalLayout.createSequentialGroup()
                         .addGap(225, 225, 225)
                         .addComponent(jbModificar)
                         .addGap(195, 195, 195)
-                        .addComponent(jbCancelar)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                        .addComponent(jbCancelar))
+                    .addGroup(jpPrincipalLayout.createSequentialGroup()
+                        .addGap(319, 319, 319)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jcbFiltrarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpPrincipalLayout.createSequentialGroup()
+                        .addGap(340, 340, 340)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         jpPrincipalLayout.setVerticalGroup(
             jpPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -575,35 +646,73 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        if(reserva == null){
+        if (reserva == null) {
             JOptionPane.showMessageDialog(null, "Debeb haber seleccionado una reserva");
             return;
         }
-        
+
         jpModificaciones.setVisible(true);
         jpPrincipal.setVisible(false);
-        jtNroReserva.setText(reserva.getIdReserva()+"");
+        jtNroReserva.setText(reserva.getIdReserva() + "");
         jtHuespedMod.setText(reserva.getHuesped().getNombre());
         jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
         jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
-        jtCantPersMod.setText(reserva.getCantPersonas()+"");
-        jtNroHabMod.setText(reserva.getHabitacion().getIdHabitacion()+"");
+        jtCantPersMod.setText(reserva.getCantPersonas() + "");
+        jtNroHabMod.setText(reserva.getHabitacion().getIdHabitacion() + "");
         fechaInMod = reserva.getFechaEntrada();
         fechaOutMod = reserva.getFechaSalida();
         jtTiposMod.setText(reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo());
-        jtMontoMod.setText(reserva.getImporte()+"");
+        jtMontoMod.setText(reserva.getImporte() + "");
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jcbFiltrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltrarPorActionPerformed
-        int i = jcbFiltrarPor.getSelectedIndex();
-        if (i == 0) {
-            jpPorHuesped.setVisible(true);
-            jpPorFechas.setVisible(false);
-            borrarFilasReservas();
-            cargarTablaReservas();
-        } else {
-            jpPorHuesped.setVisible(false);
-            jpPorFechas.setVisible(true);
+        LocalDate hoy = LocalDate.now();
+        ArrayList<Reserva> listaHoy = reservaData.buscarReservasPorFecha(hoy, hoy);
+        
+        switch (jcbFiltrarPor.getSelectedIndex()) {
+            case 0:
+                jpPorHuesped.setVisible(true);
+                jpPorFechas.setVisible(false);
+                jpHoy.setVisible(false);
+                jpPendientes.setVisible(false);
+                jpAtrasados.setVisible(false);
+                borrarFilasReservas();
+                cargarTablaReservas();
+                break;
+            case 1:
+                jpPorHuesped.setVisible(false);
+                jpPorFechas.setVisible(true);
+                jpHoy.setVisible(false);
+                jpPendientes.setVisible(false);
+                jpAtrasados.setVisible(false);
+                break;
+            case 2:
+                jpPorHuesped.setVisible(false);
+                jpPorFechas.setVisible(false);
+                jpHoy.setVisible(true);
+                jpPendientes.setVisible(false);
+                jpAtrasados.setVisible(false);
+                borrarFilasReservas();
+                cargarReservasDelDia(hoy);
+                break;
+            case 3:
+                jpPorHuesped.setVisible(false);
+                jpPorFechas.setVisible(false);
+                jpHoy.setVisible(false);
+                jpPendientes.setVisible(true);
+                jpAtrasados.setVisible(false);
+                borrarFilasReservas();
+                cargarReservasPendientes(listaHoy, hoy);
+                break;
+            case 4:
+                jpPorHuesped.setVisible(false);
+                jpPorFechas.setVisible(false);
+                jpHoy.setVisible(false);
+                jpPendientes.setVisible(false);
+                jpAtrasados.setVisible(true);
+                borrarFilasReservas();
+                cargarReservasAtrasadas(listaHoy, hoy);
+                break;
         }
         //Agregar filtro de actividades diarias
         //Agregar filtro de reservas pendientes, si fecha ingreso es menor a fecha del dia y habitacion esta libre
@@ -635,29 +744,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
             if (verificar == 1) {
                 if (variable.contains(jtBuscador.getText())) {
-                    modeloReservas.addRow(new Object[]{
-                        reserva.getIdReserva(),
-                        reserva.getHuesped().getNombre(),
-                        reserva.getHuesped().getDni(),
-                        reserva.getHabitacion().getIdHabitacion(),
-                        reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
-                        reserva.getFechaEntrada().format(formato),
-                        reserva.getFechaSalida().format(formato),
-                        reserva.getImporte()
-                    });
+                    cargarFilasReservas(reserva);
                 }
             } else if (verificar == 2) {
                 if (contienePalabras(variable, separar)) {
-                    modeloReservas.addRow(new Object[]{
-                        reserva.getIdReserva(),
-                        reserva.getHuesped().getNombre(),
-                        reserva.getHuesped().getDni(),
-                        reserva.getHabitacion().getIdHabitacion(),
-                        reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
-                        reserva.getFechaEntrada().format(formato),
-                        reserva.getFechaSalida().format(formato),
-                        reserva.getImporte()
-                    });
+                    cargarFilasReservas(reserva);
                 }
             }
         }
@@ -676,32 +767,32 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         fechaIngreso = jdcFechaIn.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         fechaSalida = jdcFechaOut.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        if(fechaIngreso == null || fechaSalida == null){
+
+        if (fechaIngreso == null || fechaSalida == null) {
             JOptionPane.showMessageDialog(null, "Debe ingresar fechas validas");
             return;
         }
-        
-        if(!fechaIngreso.isBefore(fechaSalida)){
+
+        if (!fechaIngreso.isBefore(fechaSalida)) {
             JOptionPane.showMessageDialog(null, "La fecha de ingreso no puede ser mayor que la de salida");
             return;
         }
-        
+
         borrarFilasReservas();
         cargarTablaReservasPorFechas();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         int j = JOptionPane.showConfirmDialog(null, "Esta seguro que desea cancelar la Reserva?", "Cancelando Reserva", JOptionPane.YES_NO_OPTION);
-        if(j == 0){
+        if (j == 0) {
             int i = jtReservas.getSelectedRow();
-            reservaData.cancelarReserva((int)jtReservas.getValueAt(i, 0));
+            reservaData.cancelarReserva((int) jtReservas.getValueAt(i, 0));
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtReservasMouseClicked
         int i = jtReservas.getSelectedRow();
-        reserva = reservaData.buscarReservaPorIdD((int)jtReservas.getValueAt(i, 0));
+        reserva = reservaData.buscarReservaPorIdD((int) jtReservas.getValueAt(i, 0));
     }//GEN-LAST:event_jtReservasMouseClicked
 
     private void jbCambiarNroHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarNroHabActionPerformed
@@ -712,53 +803,54 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbCambiarNroHabActionPerformed
 
     private void jbCancelarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarModActionPerformed
-        
-        int i = JOptionPane.showConfirmDialog(null, "Desea cancelar los cambios realizados?","Cancelar modificaciones", JOptionPane.YES_NO_OPTION);
-        
-        if(i != 0)
+
+        int i = JOptionPane.showConfirmDialog(null, "Desea cancelar los cambios realizados?", "Cancelar modificaciones", JOptionPane.YES_NO_OPTION);
+
+        if (i != 0) {
             return;
-        
+        }
+
         limpiarPanelMod();
     }//GEN-LAST:event_jbCancelarModActionPerformed
 
     private void jbCambiarCantPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarCantPersActionPerformed
         String numPers = JOptionPane.showInputDialog("Ingrese el numero de personas:");
-        
-        if(!numPers.matches("\\d+")){
+
+        if (!numPers.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Solo se admiten numeros enteros");
             return;
         }
-        
+
         int nPersMod = Integer.parseInt(numPers);
-        
-        if (nPersMod > reserva.getHabitacion().getTipoHabitacionCodigo().getCantidadPersonas()){
+
+        if (nPersMod > reserva.getHabitacion().getTipoHabitacionCodigo().getCantidadPersonas()) {
             JOptionPane.showMessageDialog(null, "No entran esta cantidad de personas en este tipo de habitación");
             return;
         }
-        
+
         jtCantPersMod.setText(numPers);
     }//GEN-LAST:event_jbCambiarCantPersActionPerformed
 
     private void jbComprobarFechaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComprobarFechaInActionPerformed
-        if(!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())){
+        if (!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())) {
             JOptionPane.showMessageDialog(null, "La Fecha de Ingreso no puede ser mayor que la Fecha de Salida");
             jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
             return;
         }
-        
+
         fechaInMod = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
-        
+
         int i = lista.size() - 1;
-        
-        if(i == 0){
+
+        if (i == 0) {
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaEntrada(fechaInMod);
             double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
             reserva.setImporte(monto);
-            jtMontoMod.setText(reserva.getImporte()+" $");
-        }else{
+            jtMontoMod.setText(reserva.getImporte() + " $");
+        } else {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
             jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
             fechaInMod = reserva.getFechaEntrada();
@@ -766,25 +858,25 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbComprobarFechaInActionPerformed
 
     private void ComprobarFechaOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprobarFechaOutActionPerformed
-        if(!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())){
+        if (!jdcFechaInMod.getDate().before(jdcFechaOutMod.getDate())) {
             JOptionPane.showMessageDialog(null, "La Fecha de Salida no puede ser menor que la Fecha de Ingreso");
             jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
             return;
         }
-        
+
         fechaOutMod = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
-        
+
         int i = lista.size() - 1;
-        
-        if(i == 0){
+
+        if (i == 0) {
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaSalida(fechaOutMod);
             double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
             reserva.setImporte(monto);
-            jtMontoMod.setText(reserva.getImporte()+" $");
-        }else{
+            jtMontoMod.setText(reserva.getImporte() + " $");
+        } else {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
             jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
             fechaOutMod = reserva.getFechaSalida();
@@ -793,16 +885,16 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
     private void jcbFiltroTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroTiposActionPerformed
         borrarFilasHabitaciones();
-        
+
         String codigo = jcbFiltroTipos.getSelectedItem().toString();
-        
-        if(codigo.equals("Todas")){
+
+        if (codigo.equals("Todas")) {
             cargarTablaHabitaciones();
             return;
         }
-        
-        for(Habitacion habitacion : listaHabitaciones){
-            if(codigo.equals(habitacion.getTipoHabitacionCodigo().getCodigo())){
+
+        for (Habitacion habitacion : listaHabitaciones) {
+            if (codigo.equals(habitacion.getTipoHabitacionCodigo().getCodigo())) {
                 modeloHabitaciones.addRow(new Object[]{
                     habitacion.getIdHabitacion(),
                     habitacion.getPiso(),
@@ -821,40 +913,41 @@ public class AdministrarReservas extends javax.swing.JPanel {
         Object[] opciones = {"Cancelar", "Continuar Igualmente", "Crear Reserva"};
         //Se guarda la habitacion seleccionada
         int j = jtHabitaciones.getSelectedRow();
-        Habitacion habitacion = habitacionData.buscarHabitacion((int)jtHabitaciones.getValueAt(j, 0));
-        
-        int cantPers = reserva.getCantPersonas()-habitacion.getTipoHabitacionCodigo().getCantidadPersonas();
-        
-        if(i != 0)
+        Habitacion habitacion = habitacionData.buscarHabitacion((int) jtHabitaciones.getValueAt(j, 0));
+
+        int cantPers = reserva.getCantPersonas() - habitacion.getTipoHabitacionCodigo().getCantidadPersonas();
+
+        if (i != 0) {
             return;
-        
-        if(habitacion.getTipoHabitacionCodigo().getCantidadPersonas()<reserva.getCantPersonas()){
+        }
+
+        if (habitacion.getTipoHabitacionCodigo().getCantidadPersonas() < reserva.getCantPersonas()) {
             String mensaje = "La cantidad de personas que la habitación admite es menor a la cantidad de personas de la reserva\n"
                     + "¿Desea continuar de todas maneras, o crear nueva/s reserva/s para las peronas restantes?";
             respuesta = JOptionPane.showOptionDialog(this, mensaje, "Problema en cantidad de personas",
-                    JOptionPane.YES_NO_CANCEL_OPTION, 
+                    JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE, null, opciones, null);
         }
-        
-        if(respuesta == 0){
+
+        if (respuesta == 0) {
             return;
         }
-        if(respuesta == 1){
+        if (respuesta == 1) {
             reserva.setHabitacion(habitacion);
             reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
             jtTiposMod.setText(habitacion.getTipoHabitacionCodigo().getCodigo());
-            jtCantPersMod.setText(reserva.getCantPersonas()+"");
-            jtNroHabMod.setText(habitacion.getIdHabitacion()+"");
+            jtCantPersMod.setText(reserva.getCantPersonas() + "");
+            jtNroHabMod.setText(habitacion.getIdHabitacion() + "");
             JOptionPane.showMessageDialog(null, "Se cambio la cantidad de personas en la reserva para que coincida con la cantidad que admite el tipo de habitación");
             return;
         }
-        
-        if(respuesta == 2){
+
+        if (respuesta == 2) {
             String mensaje = "Se guardaran los cambios realizados en la reserva(habitación incluida) y se redireccionara a "
-                    + "creación de reservas.\nQuedan "+ cantPers+" personas por relocar ¿Desea continuar?";
+                    + "creación de reservas.\nQuedan " + cantPers + " personas por relocar ¿Desea continuar?";
             int continuar = JOptionPane.showConfirmDialog(null, mensaje, "Continuar a reservas", JOptionPane.YES_NO_OPTION);
-            
-            if(continuar == 0){
+
+            if (continuar == 0) {
                 reserva.setHabitacion(habitacion);
                 reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
                 CrearReservas.traerReserva(reserva, cantPers);
@@ -862,25 +955,33 @@ public class AdministrarReservas extends javax.swing.JPanel {
             }
             return;
         }
-        
+
         reserva.setHabitacion(habitacion);
         jtTiposMod.setText(habitacion.getTipoHabitacionCodigo().getCodigo());
-        jtNroHabMod.setText(habitacion.getIdHabitacion()+"");
+        jtNroHabMod.setText(habitacion.getIdHabitacion() + "");
         JOptionPane.showMessageDialog(null, "Se modifico la habitación con exito.");
     }//GEN-LAST:event_jtHabitacionesMouseClicked
 
     private void jbGuardarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarModActionPerformed
-        String mensaje = "Nombre: " + reserva.getHuesped().getNombre() + " ,DNI: " + reserva.getHuesped().getDni() + "\n"
-                + "Fecha de Ingreso: " + fechaInMod.format(formato) + " ,Fecha de Salida: " + fechaOutMod.format(formato) + "\n"
-                + "Nro. habitacion " + reserva.getHabitacion().getIdHabitacion() + " ,Tipo: " + reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
-                    + " ,Monto: " + reserva.getImporte() + " $\n"
-                + "¿Desea guardar los cambios?";
-        int i = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar modificaciones", JOptionPane.YES_NO_OPTION);
-        //Recordar poner mas verificaciones para asegurar que se comprobaron los cambios de fechas si es que los hubo
-        if(i!=0){
+        LocalDate fechaEntrada = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaSalida = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        if(!fechaEntrada.isEqual(reserva.getFechaEntrada()) || !fechaSalida.isEqual(reserva.getFechaSalida())){
+            JOptionPane.showMessageDialog(null, "Debe comprobar la disponibilidad de los cambios en las fechas.");
             return;
         }
         
+        String mensaje = "Nombre: " + reserva.getHuesped().getNombre() + " ,DNI: " + reserva.getHuesped().getDni() + "\n"
+                + "Fecha de Ingreso: " + fechaInMod.format(formato) + " ,Fecha de Salida: " + fechaOutMod.format(formato) + "\n"
+                + "Nro. habitacion " + reserva.getHabitacion().getIdHabitacion() + " ,Tipo: " + reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
+                + " ,Monto: " + reserva.getImporte() + " $\n"
+                + "¿Desea guardar los cambios?";
+        int i = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar modificaciones", JOptionPane.YES_NO_OPTION);
+        //Recordar poner mas verificaciones para asegurar que se comprobaron los cambios de fechas si es que los hubo
+        if (i != 0) {
+            return;
+        }
+
         reservaData.modificarReserva(reserva);
         JOptionPane.showMessageDialog(null, "Se modifico la reserva con exito");
         limpiarPanelMod();
@@ -897,6 +998,9 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -922,8 +1026,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jdcFechaInMod;
     private com.toedter.calendar.JDateChooser jdcFechaOut;
     private com.toedter.calendar.JDateChooser jdcFechaOutMod;
+    private javax.swing.JPanel jpAtrasados;
     private javax.swing.JPanel jpFondoDePaneles;
+    private javax.swing.JPanel jpHoy;
     private javax.swing.JPanel jpModificaciones;
+    private javax.swing.JPanel jpPendientes;
     private javax.swing.JPanel jpPorFechas;
     private javax.swing.JPanel jpPorHuesped;
     private javax.swing.JPanel jpPrincipal;
@@ -953,16 +1060,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private void cargarTablaReservas() {
 
         for (Reserva reserva : listaReservas) {
-            modeloReservas.addRow(new Object[]{
-                reserva.getIdReserva(),
-                reserva.getHuesped().getNombre(),
-                reserva.getHuesped().getDni(),
-                reserva.getHabitacion().getIdHabitacion(),
-                reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
-                reserva.getFechaEntrada().format(formato),
-                reserva.getFechaSalida().format(formato),
-                reserva.getImporte()
-            });
+            cargarFilasReservas(reserva);
         }
 
     }
@@ -971,17 +1069,46 @@ public class AdministrarReservas extends javax.swing.JPanel {
         borrarFilasReservas();
         ArrayList<Reserva> listaReservasFechas = reservaData.buscarReservasPorFecha(fechaIngreso, fechaSalida);
         for (Reserva reserva : listaReservasFechas) {
-            modeloReservas.addRow(new Object[]{
-                reserva.getIdReserva(),
-                reserva.getHuesped().getNombre(),
-                reserva.getHuesped().getDni(),
-                reserva.getHabitacion().getIdHabitacion(),
-                reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
-                reserva.getFechaEntrada().format(formato),
-                reserva.getFechaSalida().format(formato),
-                reserva.getImporte()
-            });
+            cargarFilasReservas(reserva);
         }
+    }
+
+    private void cargarReservasDelDia(LocalDate hoy) {
+        ArrayList<Reserva> listaReservasFechas = reservaData.buscarReservasPorFecha(hoy, hoy);
+        for (Reserva reserva : listaReservasFechas) {
+            if (reserva.getFechaEntrada().isEqual(hoy) || reserva.getFechaSalida().isEqual(hoy)) {
+                cargarFilasReservas(reserva);
+            }
+        }
+    }
+    
+    private void cargarReservasPendientes(ArrayList<Reserva> lista, LocalDate hoy){
+        for(Reserva reserva : lista){
+            if(reserva.getFechaEntrada().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()){
+                cargarFilasReservas(reserva);
+            }
+        }
+    }
+    
+    private void cargarReservasAtrasadas(ArrayList<Reserva> lista, LocalDate hoy){
+        for(Reserva reserva : lista){
+            if(reserva.getFechaSalida().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()){
+                cargarFilasReservas(reserva);
+            }
+        }
+    }
+
+    private void cargarFilasReservas(Reserva reserva) {
+        modeloReservas.addRow(new Object[]{
+            reserva.getIdReserva(),
+            reserva.getHuesped().getNombre(),
+            reserva.getHuesped().getDni(),
+            reserva.getHabitacion().getIdHabitacion(),
+            reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
+            reserva.getFechaEntrada().format(formato),
+            reserva.getFechaSalida().format(formato),
+            reserva.getImporte()
+        });
     }
 
     private void borrarFilasReservas() {
@@ -1014,21 +1141,22 @@ public class AdministrarReservas extends javax.swing.JPanel {
             modeloHabitaciones.removeRow(f);
         }
     }
-    
-    private boolean contienePalabras(String input, String[] palabras){
+
+    private boolean contienePalabras(String input, String[] palabras) {
         boolean verificar = false;
-        
-        for(String str : palabras){
-            if(input.contains(str))
+
+        for (String str : palabras) {
+            if (input.contains(str)) {
                 verificar = true;
-            else
+            } else {
                 verificar = false;
+            }
         }
-        
+
         return verificar;
     }
-    
-    private void limpiarPanelMod(){
+
+    private void limpiarPanelMod() {
         jpModificaciones.setVisible(false);
         jpPrincipal.setVisible(true);
         jtNroReserva.setText("");
