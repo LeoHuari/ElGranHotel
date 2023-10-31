@@ -15,8 +15,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,6 +56,8 @@ public class AdministrarReservas extends javax.swing.JPanel {
         armarTablaReservas();
         cargarTablaReservas();
         armarTablaHabitaciones();
+        centrarTablas(jtHabitaciones);
+        centrarTablas(jtReservas);
         UIManager.put("OptionPane.yesButtonText", "Si");
         UIManager.put("OptionPane.cancelButtonText", "Cancelar");
         UIManager.put("OptionPane.okButtonText", "Aceptar");
@@ -489,17 +495,17 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jpHoy.setLayout(jpHoyLayout);
         jpHoyLayout.setHorizontalGroup(
             jpHoyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpHoyLayout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
+            .addGroup(jpHoyLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
                 .addComponent(jLabel15)
-                .addGap(199, 199, 199))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
         jpHoyLayout.setVerticalGroup(
             jpHoyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpHoyLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+            .addGroup(jpHoyLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         jpFondoDePaneles.add(jpHoy, "card4");
@@ -511,17 +517,17 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jpPendientes.setLayout(jpPendientesLayout);
         jpPendientesLayout.setHorizontalGroup(
             jpPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPendientesLayout.createSequentialGroup()
-                .addContainerGap(216, Short.MAX_VALUE)
+            .addGroup(jpPendientesLayout.createSequentialGroup()
+                .addGap(198, 198, 198)
                 .addComponent(jLabel16)
-                .addGap(199, 199, 199))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
         jpPendientesLayout.setVerticalGroup(
             jpPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpPendientesLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+            .addGroup(jpPendientesLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jpFondoDePaneles.add(jpPendientes, "card5");
@@ -533,17 +539,17 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jpAtrasados.setLayout(jpAtrasadosLayout);
         jpAtrasadosLayout.setHorizontalGroup(
             jpAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpAtrasadosLayout.createSequentialGroup()
-                .addContainerGap(201, Short.MAX_VALUE)
+            .addGroup(jpAtrasadosLayout.createSequentialGroup()
+                .addGap(199, 199, 199)
                 .addComponent(jLabel17)
-                .addGap(199, 199, 199))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
         jpAtrasadosLayout.setVerticalGroup(
             jpAtrasadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpAtrasadosLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+            .addGroup(jpAtrasadosLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jpFondoDePaneles.add(jpAtrasados, "card6");
@@ -1151,7 +1157,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
     private void cargarReservasPendientes(ArrayList<Reserva> lista, LocalDate hoy) {
         for (Reserva reserva : lista) {
-            if (reserva.getFechaEntrada().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()) {
+            if (reserva.getFechaEntrada().isBefore(hoy) && !reserva.getHabitacion().isDisponibilidad()) {
                 cargarFilasReservas(reserva);
             }
         }
@@ -1237,5 +1243,14 @@ public class AdministrarReservas extends javax.swing.JPanel {
         listaHabitaciones.clear();
         fechaInMod = null;
         fechaOutMod = null;
+    }
+    
+    private void centrarTablas(JTable table) {
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, centerRenderer);
+
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
 }
