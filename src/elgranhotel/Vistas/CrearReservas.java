@@ -396,7 +396,7 @@ public class CrearReservas extends javax.swing.JPanel {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea cancelar la/s reserva/s?", TOOL_TIP_TEXT_KEY, JOptionPane.OK_CANCEL_OPTION);
-        if(confirmar != 0){
+        if (confirmar != 0) {
             return;
         }
         huesped = null;
@@ -544,7 +544,6 @@ public class CrearReservas extends javax.swing.JPanel {
             listaIdHabitacion.add((int) jtHabitaciones.getValueAt(i, 0));
 
             //cantPersonas -= cant;
-
         }
 
         if (cantPersonas < 0) {
@@ -749,4 +748,22 @@ public class CrearReservas extends javax.swing.JPanel {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
+    public void traerReserva(Reserva reserva, int cantPers) {
+        borrarFilasHuespedes();
+        huesped = reserva.getHuesped();
+        jtfBuscador.setText(reserva.getHuesped().getIdHuesped() + "");
+        modeloHuesped.addRow(new Object[]{
+            huesped.getIdHuesped(),
+            huesped.getNombre(),
+            huesped.getDni(),
+            huesped.getCorreo(),
+            huesped.getCelular(),
+            huesped.getDomicilio(),
+            huesped.isEstado()
+        });
+        jdcFechaIn.setDate(Date.from(reserva.getFechaEntrada().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jdcFechaOut.setDate(Date.from(reserva.getFechaSalida().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jtfCantPers.setText(cantPers+"");
+        
+    }
 }
