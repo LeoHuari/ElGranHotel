@@ -481,6 +481,7 @@ public class CrearReservas extends javax.swing.JPanel {
             cargarTablaHabitacion();
             jtfCantPersRestantes.setText(jtfCantPers.getText());
             cantPersRestantes = Integer.parseInt(jtfCantPers.getText());
+            jcbTipoHab.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
 

@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AdministrarReservas extends javax.swing.JPanel {
 
-    private DefaultTableModel modeloReservas = new DefaultTableModel() {
+    private static DefaultTableModel modeloReservas = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -42,12 +42,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private HuespedData huespedData = new HuespedData();
     private HabitacionData habitacionData = new HabitacionData();
     private ReservaData reservaData = new ReservaData();
-    private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate fechaIngreso = null;
     private LocalDate fechaSalida = null;
     private LocalDate fechaInMod = null;
     private LocalDate fechaOutMod = null;
-    private ArrayList<Reserva> listaReservas = reservaData.listarReservas();
+    private ArrayList<Reserva> listaReservas = reservaData.listarReservas();;
     private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private Reserva reserva = null;
 
@@ -1121,7 +1121,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private javax.swing.JTextField jtMontoMod;
     private javax.swing.JTextField jtNroHabMod;
     private javax.swing.JTextField jtNroReserva;
-    private javax.swing.JTable jtReservas;
+    private static javax.swing.JTable jtReservas;
     private javax.swing.JTextField jtTiposMod;
     // End of variables declaration//GEN-END:variables
 
@@ -1137,8 +1137,8 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jtReservas.setModel(modeloReservas);
     }
 
-    private void cargarTablaReservas() {
-
+    protected void cargarTablaReservas() {
+        
         for (Reserva reserva : listaReservas) {
             cargarFilasReservas(reserva);
         }
@@ -1178,7 +1178,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
     }
 
-    private void cargarFilasReservas(Reserva reserva) {
+    private static void cargarFilasReservas(Reserva reserva) {
         modeloReservas.addRow(new Object[]{
             reserva.getIdReserva(),
             reserva.getHuesped().getNombre(),
@@ -1191,7 +1191,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         });
     }
 
-    private void borrarFilasReservas() {
+    protected static void borrarFilasReservas() {
         int f = jtReservas.getRowCount() - 1;
         for (; f >= 0; f--) {
             modeloReservas.removeRow(f);
@@ -1259,5 +1259,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    
+    protected static void cargarTablaReservaStatic(ArrayList<Reserva> lista) {
+        for (Reserva reserva : lista) {
+            cargarFilasReservas(reserva);
+        }
     }
 }

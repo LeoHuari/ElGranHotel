@@ -7,6 +7,8 @@ package elgranhotel.Vistas;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
+import elgranhotel.Data.ReservaData;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
@@ -21,6 +23,8 @@ public class Principal extends javax.swing.JFrame {
     AdministrarReservas adReservas = new AdministrarReservas();
     Habitaciones rooms = new Habitaciones();
     Huespedes guest = new Huespedes();
+    ReservaData reservaData = new ReservaData();
+    
     /**
      * Creates new form Principal
      */
@@ -158,6 +162,8 @@ public class Principal extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int i = jtpVentanas.indexOfTab("AdReserva");
         jtpVentanas.setSelectedIndex(i);
+        AdministrarReservas.borrarFilasReservas();
+        AdministrarReservas.cargarTablaReservaStatic(reservaData.listarReservas());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
