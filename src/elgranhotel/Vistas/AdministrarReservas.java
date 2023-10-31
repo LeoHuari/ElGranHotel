@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -42,6 +43,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private LocalDate fechaInMod = null;
     private LocalDate fechaOutMod = null;
     private ArrayList<Reserva> listaReservas = reservaData.listarReservas();
+    private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private Reserva reserva = null;
 
     
@@ -89,6 +91,8 @@ public class AdministrarReservas extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jbCancelarMod = new javax.swing.JButton();
         jbGuardarMod = new javax.swing.JButton();
+        jtTiposMod = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         jpPrincipal = new javax.swing.JPanel();
         jpFondoDePaneles = new javax.swing.JPanel();
         jpPorHuesped = new javax.swing.JPanel();
@@ -183,6 +187,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtHabitacionesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtHabitaciones);
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -209,6 +218,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
         jbGuardarMod.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jbGuardarMod.setText("Guardar cambios");
+
+        jtTiposMod.setEditable(false);
+        jtTiposMod.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setText("Tipo:");
 
         javax.swing.GroupLayout jpModificacionesLayout = new javax.swing.GroupLayout(jpModificaciones);
         jpModificaciones.setLayout(jpModificacionesLayout);
@@ -257,18 +272,23 @@ public class AdministrarReservas extends javax.swing.JPanel {
                         .addGap(134, 134, 134)
                         .addComponent(jbGuardarMod))
                     .addGroup(jpModificacionesLayout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(jLabel10)
+                        .addGap(22, 22, 22)
+                        .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
+                        .addComponent(jbCambiarNroHab))
+                    .addGroup(jpModificacionesLayout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
+                            .addComponent(jLabel13)
                             .addComponent(jLabel8))
                         .addGap(22, 22, 22)
-                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtCantPersMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtNroHabMod, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtTiposMod, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(jtCantPersMod))
                         .addGap(61, 61, 61)
-                        .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbCambiarCantPers, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jbCambiarNroHab, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(jbCambiarCantPers)))
                 .addGap(90, 90, 90))
         );
         jpModificacionesLayout.setVerticalGroup(
@@ -305,24 +325,32 @@ public class AdministrarReservas extends javax.swing.JPanel {
                         .addComponent(jLabel8))
                     .addComponent(jtCantPersMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCambiarCantPers))
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(jbCambiarNroHab))
-                .addGap(69, 69, 69)
+                    .addComponent(jtTiposMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(20, 20, 20)
+                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbCambiarNroHab)
+                        .addComponent(jtNroHabMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpModificacionesLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel10)))
+                .addGap(45, 45, 45)
                 .addComponent(jLabel11)
                 .addGap(31, 31, 31)
-                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jcbFiltroTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpModificacionesLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel12))
+                    .addComponent(jcbFiltroTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jpModificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbCancelarMod)
-                    .addComponent(jbGuardarMod))
-                .addContainerGap())
+                    .addComponent(jbGuardarMod)))
         );
 
         add(jpModificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -4, 980, 1030));
@@ -553,6 +581,9 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
     private void jtBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscadorKeyReleased
         borrarFilasReservas();
+        String busqueda = jtBuscador.getText().toLowerCase();
+        String[] separar = busqueda.split(" ");
+        //JOptionPane.showMessageDialog(null, separar);
         String variable = null;
         int verificar = 0;
         for (Reserva reserva : listaReservas) {
@@ -573,7 +604,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
             }
 
             if (verificar == 1) {
-                if (variable.startsWith(jtBuscador.getText())) {
+                if (variable.contains(jtBuscador.getText())) {
                     modeloReservas.addRow(new Object[]{
                         reserva.getIdReserva(),
                         reserva.getHuesped().getNombre(),
@@ -586,7 +617,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
                     });
                 }
             } else if (verificar == 2) {
-                if (variable.contains(jtBuscador.getText().toLowerCase())) {
+                if (contienePalabras(variable, separar)) {
                     modeloReservas.addRow(new Object[]{
                         reserva.getIdReserva(),
                         reserva.getHuesped().getNombre(),
@@ -644,6 +675,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jtReservasMouseClicked
 
     private void jbCambiarNroHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarNroHabActionPerformed
+        listaHabitaciones = habitacionData.listarHabitacionesPorFecha(fechaInMod, fechaOutMod);
         borrarFilasHabitaciones();
         cargarTablaHabitaciones();
         jcbFiltroTipos.setSelectedIndex(0);
@@ -733,7 +765,68 @@ public class AdministrarReservas extends javax.swing.JPanel {
             cargarTablaHabitaciones();
             return;
         }
+        
+        for(Habitacion habitacion : listaHabitaciones){
+            if(codigo.equals(habitacion.getTipoHabitacionCodigo().getCodigo())){
+                modeloHabitaciones.addRow(new Object[]{
+                    habitacion.getIdHabitacion(),
+                    habitacion.getPiso(),
+                    habitacion.getTipoHabitacionCodigo().getCodigo()
+                });
+            }
+        }
     }//GEN-LAST:event_jcbFiltroTiposActionPerformed
+
+    private void jtHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtHabitacionesMouseClicked
+        //Confirmacion de cambio de habitacion
+        int i = JOptionPane.showConfirmDialog(null, "Desea cambiar la habitación?", "Modificación de habitación", JOptionPane.OK_CANCEL_OPTION);
+        //variables para uso de joptionpane.showoptiondialog
+        int respuesta = -1;
+        Object[] opciones = {"Crear Reserva", "Continuar Igualmente", "Cancelar"};
+        //Se guarda la habitacion seleccionada
+        int j = jtHabitaciones.getSelectedRow();
+        Habitacion habitacion = habitacionData.buscarHabitacion((int)jtHabitaciones.getValueAt(j, 0));
+        
+        if(i != 0)
+            return;
+        
+        // 0=yes, 1=no, 2=cancel
+        if(habitacion.getTipoHabitacionCodigo().getCantidadPersonas()<reserva.getCantPersonas()){
+            String mensaje = "La cantidad de personas que la habitación admite es menor a la cantidad de personas de la reserva \n "
+                    + "¿Desea continuar de todas maneras, o crear nueva/s reserva/s para las peronas restantes?";
+            respuesta = JOptionPane.showOptionDialog(this, mensaje, "Problema en cantidad de personas",
+                    JOptionPane.YES_NO_CANCEL_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, null, opciones, null);
+        }
+        
+        if(respuesta == 0)
+            return;
+        
+        if(respuesta == 1){
+            reserva.setHabitacion(habitacion);
+            reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
+            jtTiposMod.setText(habitacion.getTipoHabitacionCodigo().getCodigo());
+            jtCantPersMod.setText(reserva.getCantPersonas()+"");
+            jtNroHabMod.setText(habitacion.getIdHabitacion()+"");
+            JOptionPane.showMessageDialog(null, "Se cambio la cantidad de personas en la reserva para que coincida con la cantidad que admite el tipo de habitación");
+            return;
+        }
+        
+        if(respuesta == 2){
+            String mensaje = "Se guardaran los cambios realizados en la reserva(habitación incluida) y se redireccionara a "
+                    + "creación de reservas \n ¿Desea continuar?";
+            int continuar = JOptionPane.showConfirmDialog(null, mensaje, "Continuar a reservas", JOptionPane.YES_NO_OPTION);
+            
+            if(continuar == 0){
+                reserva.setHabitacion(habitacion);
+                reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
+                
+            }
+        }
+        
+        reserva.setHabitacion(habitacion);
+        JOptionPane.showMessageDialog(null, "Se modifico la habitación con exito.");
+    }//GEN-LAST:event_jtHabitacionesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -742,6 +835,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -779,6 +873,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private javax.swing.JTextField jtNroHabMod;
     private javax.swing.JTextField jtNroReserva;
     private javax.swing.JTable jtReservas;
+    private javax.swing.JTextField jtTiposMod;
     // End of variables declaration//GEN-END:variables
 
     private void armarTablaReservas() {
@@ -842,8 +937,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }
 
     private void cargarTablaHabitaciones() {
-        ArrayList<Habitacion> lista = habitacionData.listarHabitacionesPorFecha(fechaInMod, fechaOutMod);
-        for (Habitacion habitacion : lista) {
+        for (Habitacion habitacion : listaHabitaciones) {
             modeloHabitaciones.addRow(new Object[]{
                 habitacion.getIdHabitacion(),
                 habitacion.getPiso(),
@@ -857,5 +951,18 @@ public class AdministrarReservas extends javax.swing.JPanel {
         for (; f >= 0; f--) {
             modeloHabitaciones.removeRow(f);
         }
+    }
+    
+    private boolean contienePalabras(String input, String[] palabras){
+        boolean verificar = false;
+        
+        for(String str : palabras){
+            if(input.contains(str))
+                verificar = true;
+            else
+                verificar = false;
+        }
+        
+        return verificar;
     }
 }

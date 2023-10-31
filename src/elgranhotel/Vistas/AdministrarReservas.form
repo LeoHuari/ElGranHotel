@@ -63,37 +63,42 @@
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
+                          <EmptySpace min="113" pref="113" max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                           <Component id="jcbFiltroTipos" min="-2" pref="108" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="90" pref="90" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="800" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="253" pref="253" max="-2" attributes="0"/>
                           <Component id="jbCancelarMod" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          <EmptySpace min="134" pref="134" max="-2" attributes="0"/>
                           <Component id="jbGuardarMod" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="270" pref="270" max="-2" attributes="0"/>
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
+                          <Component id="jtNroHabMod" min="-2" pref="129" max="-2" attributes="0"/>
+                          <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
+                          <Component id="jbCambiarNroHab" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jtCantPersMod" alignment="1" min="-2" pref="129" max="-2" attributes="0"/>
-                              <Component id="jtNroHabMod" alignment="1" min="-2" pref="129" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jtTiposMod" pref="129" max="32767" attributes="0"/>
+                              <Component id="jtCantPersMod" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jbCambiarCantPers" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jbCambiarNroHab" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="61" pref="61" max="-2" attributes="0"/>
+                          <Component id="jbCambiarCantPers" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
@@ -143,27 +148,39 @@
                       <Component id="jtCantPersMod" min="-2" max="-2" attributes="0"/>
                       <Component id="jbCambiarCantPers" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtNroHabMod" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbCambiarNroHab" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtTiposMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="69" pref="69" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jbCambiarNroHab" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtNroHabMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="31" pref="31" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jcbFiltroTipos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jcbFiltroTipos" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="260" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jbCancelarMod" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbGuardarMod" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="54" pref="54" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jbCancelarMod" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbGuardarMod" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -313,6 +330,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtHabitacionesMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -375,6 +395,22 @@
               <Font name="Dialog" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Guardar cambios"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtTiposMod">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel13">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tipo:"/>
           </Properties>
         </Component>
       </SubComponents>
