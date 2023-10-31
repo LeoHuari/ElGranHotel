@@ -15,13 +15,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import javax.swing.DefaultListSelectionModel;
+import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -34,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
 public class CrearReservas extends javax.swing.JPanel {
 
     Class tipo[] = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class};
-    private DefaultTableModel modeloHuesped = new DefaultTableModel() {
+    protected static DefaultTableModel modeloHuesped = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -56,12 +54,13 @@ public class CrearReservas extends javax.swing.JPanel {
     private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private ArrayList<Reserva> listaReservas = new ArrayList();
     private ArrayList<Integer> listaIdHabitacion = new ArrayList();
-    private Huesped huesped = null;
+    private HashMap<Integer, Integer> mapaHabitaciones = new HashMap();
+    protected static Huesped huesped = null;
     private LocalDate fechaIngreso = null;
     private LocalDate fechaSalida = null;
     private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private Integer cantPersonas = null;
-    private Integer cantPersonasRestantes = null;
+    private Integer cantPersRestantes = null;
+    private Integer cantPersIn = null;
 
     /**
      * Creates new form CrearReservas
@@ -396,20 +395,10 @@ public class CrearReservas extends javax.swing.JPanel {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         int confirmar = JOptionPane.showConfirmDialog(null, "¿Desea cancelar la/s reserva/s?", TOOL_TIP_TEXT_KEY, JOptionPane.OK_CANCEL_OPTION);
-        if(confirmar != 0){
+        if (confirmar != 0) {
             return;
         }
-        huesped = null;
-        listaReservas.clear();
-        fechaIngreso = null;
-        fechaSalida = null;
-        jdcFechaIn.setDate(null);
-        jdcFechaOut.setDate(null);
-        borrarFilasHabitacion();
-        cantPersonas = null;
-        cantPersonasRestantes = null;
-        jtfCantPers.setText("");
-        jtfCantPersRestantes.setText("");
+        limpiarPanelReservas();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jtfBuscadorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfBuscadorKeyReleased
@@ -489,7 +478,7 @@ public class CrearReservas extends javax.swing.JPanel {
             cargarListaHabitaciones(fechaIn, fechaOut);
             cargarTablaHabitacion();
             jtfCantPersRestantes.setText(jtfCantPers.getText());
-            cantPersonas = Integer.parseInt(jtfCantPers.getText());
+            cantPersRestantes = Integer.parseInt(jtfCantPers.getText());
         }
     }//GEN-LAST:event_jbMostrarActionPerformed
 
@@ -506,22 +495,29 @@ public class CrearReservas extends javax.swing.JPanel {
         double importe = reservaData.calcularImporte(fechaIngreso, fechaSalida, habitacion.getTipoHabitacionCodigo());
         //Deseleccionar y seleccionar
 
-        if ((boolean) jtHabitaciones.getValueAt(i, 5)) {
+        if ((boolean)jtHabitaciones.getValueAt(i, 5)) {
+            int confirmar = JOptionPane.showConfirmDialog(null, "Desea cancelar esta habitación?", "Cancelar selección", JOptionPane.YES_NO_OPTION);
+            
+            if(confirmar != 0){
+                return;
+            }
+            
             jtHabitaciones.setValueAt(false, i, 5);
 
             for (int j = 0; j < listaReservas.size(); j++) {
                 Reserva r = listaReservas.get(j);
                 if (r.getHabitacion().getIdHabitacion() == (int) jtHabitaciones.getValueAt(i, 0)) {
                     listaReservas.remove(j);
-                    listaIdHabitacion.remove(j);
                 }
             }
-            cantPersonas -= cantPersonasRestantes;
+            
+            cantPersRestantes += mapaHabitaciones.get((int)jtHabitaciones.getValueAt(i, 0));
+            jtfCantPersRestantes.setText(cantPersRestantes+"");
         } else {
             try {
-                cantPersonasRestantes = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de personas:"));
+                cantPersIn = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de personas:"));
 
-                if (cantPersonasRestantes > habitacion.getTipoHabitacionCodigo().getCantidadPersonas()) {
+                if (cantPersIn > habitacion.getTipoHabitacionCodigo().getCantidadPersonas()) {
                     JOptionPane.showMessageDialog(null, "El numero de personas no puede ser mayor que el numero que admite el tipo de habitacion");
                     return;
                 }
@@ -529,9 +525,19 @@ public class CrearReservas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Solo se pueden ingresar numeros enteros");
                 return;
             }
-
+            
+            if(cantPersIn == 0){
+                JOptionPane.showMessageDialog(null, "No se pueden ingresar cero huespedes");
+                return;
+            }
+            
+            if(cantPersRestantes - cantPersIn < 0){
+                JOptionPane.showMessageDialog(null, "El numero de personas ingresado es mas grande que el de personas restantes");
+                return;
+            }
+            
             jtHabitaciones.setValueAt(true, i, 5);
-
+            
             reserva.setHuesped(huesped);
             reserva.setHabitacion(habitacion);
             reserva.setCantPersonas(Integer.parseInt(jtfCantPers.getText()));
@@ -540,22 +546,19 @@ public class CrearReservas extends javax.swing.JPanel {
             reserva.setImporte(importe);
             reserva.setEstado(true);
             listaReservas.add(reserva);
+            mapaHabitaciones.put((int)jtHabitaciones.getValueAt(i, 0), cantPersIn);
 
-            listaIdHabitacion.add((int) jtHabitaciones.getValueAt(i, 0));
-
-            //cantPersonas -= cant;
-
-        }
-
-        if (cantPersonas < 0) {
-            jtfCantPersRestantes.setText("0");
-        } else {
-            jtfCantPersRestantes.setText(cantPersonas + "");
+            cantPersRestantes -= cantPersIn;
+            jtfCantPersRestantes.setText(cantPersRestantes+"");
         }
     }//GEN-LAST:event_jtHabitacionesMouseClicked
 
     private void jbCompletarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCompletarReservaActionPerformed
-
+        if(cantPersRestantes > 0 || cantPersRestantes == null){
+            JOptionPane.showMessageDialog(this, "Faltan personas por hospedar");
+            return;
+        }
+        
         if (listaReservas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tiene que haber seleccionado al menos una habitación");
             return;
@@ -574,11 +577,17 @@ public class CrearReservas extends javax.swing.JPanel {
 
         mensaje += "Total a pagar: " + montoTotal + " $";
 
-        JOptionPane.showConfirmDialog(null, mensaje, "Confirme las reservas", JOptionPane.OK_CANCEL_OPTION);
-
-//        for (Reserva reserva : listaReservas) {
-//            reservaData.crearReserva(reserva);
-//        }
+        int confirmar = JOptionPane.showConfirmDialog(null, mensaje, "Confirme las reservas", JOptionPane.OK_CANCEL_OPTION);
+        
+        if(confirmar != 0){
+            return;
+        }
+        
+        for (Reserva reserva : listaReservas) {
+            reservaData.crearReserva(reserva);
+        }
+        JOptionPane.showMessageDialog(null, "Se han creado las reservas con exito");
+        limpiarPanelReservas();
     }//GEN-LAST:event_jbCompletarReservaActionPerformed
 
     private void jcbTipoHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoHabActionPerformed
@@ -589,7 +598,7 @@ public class CrearReservas extends javax.swing.JPanel {
 
         if (codigo.equals("Todas")) {
             for (Habitacion habitacion : listaHabitaciones) {
-                if (listaIdHabitacion.contains(habitacion.getIdHabitacion())) {
+                if (mapaHabitaciones.containsKey(habitacion.getIdHabitacion())) {
                     existe = true;
                 } else {
                     existe = false;
@@ -607,7 +616,7 @@ public class CrearReservas extends javax.swing.JPanel {
 
         for (Habitacion habitacion : listaHabitaciones) {
             if (habitacion.getTipoHabitacionCodigo().getCodigo().equals(codigo)) {
-                if (listaIdHabitacion.contains(habitacion.getIdHabitacion())) {
+                if (mapaHabitaciones.containsKey(habitacion.getIdHabitacion())) {
                     existe = true;
                 } else {
                     existe = false;
@@ -621,7 +630,6 @@ public class CrearReservas extends javax.swing.JPanel {
                     existe
                 });
             }
-
         }
     }//GEN-LAST:event_jcbTipoHabActionPerformed
 
@@ -658,14 +666,14 @@ public class CrearReservas extends javax.swing.JPanel {
     private javax.swing.JButton jbMostrar;
     private javax.swing.JComboBox<String> jcbFiltroHuesped;
     private javax.swing.JComboBox<String> jcbTipoHab;
-    private com.toedter.calendar.JDateChooser jdcFechaIn;
-    private com.toedter.calendar.JDateChooser jdcFechaOut;
+    private static com.toedter.calendar.JDateChooser jdcFechaIn;
+    private static com.toedter.calendar.JDateChooser jdcFechaOut;
     private javax.swing.JPanel jpContenedor1;
     private javax.swing.JPanel jpContenedor2;
     private javax.swing.JTable jtHabitaciones;
-    private javax.swing.JTable jtHuespedes;
-    private javax.swing.JTextField jtfBuscador;
-    private javax.swing.JTextField jtfCantPers;
+    private static javax.swing.JTable jtHuespedes;
+    private static javax.swing.JTextField jtfBuscador;
+    private static javax.swing.JTextField jtfCantPers;
     private javax.swing.JTextField jtfCantPersRestantes;
     // End of variables declaration//GEN-END:variables
 
@@ -694,7 +702,7 @@ public class CrearReservas extends javax.swing.JPanel {
         }
     }
 
-    private void borrarFilasHuespedes() {
+    private static void borrarFilasHuespedes() {
         int f = jtHuespedes.getRowCount() - 1;
         for (; f >= 0; f--) {
             modeloHuesped.removeRow(f);
@@ -748,4 +756,36 @@ public class CrearReservas extends javax.swing.JPanel {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
+    public static void traerReserva(Reserva reserva, int cantPers) {
+        borrarFilasHuespedes();
+        huesped = reserva.getHuesped();
+        jtfBuscador.setText(reserva.getHuesped().getIdHuesped() + "");
+        modeloHuesped.addRow(new Object[]{
+            huesped.getIdHuesped(),
+            huesped.getNombre(),
+            huesped.getDni(),
+            huesped.getCorreo(),
+            huesped.getCelular(),
+            huesped.getDomicilio(),
+            huesped.isEstado()
+        });
+        jdcFechaIn.setDate(Date.from(reserva.getFechaEntrada().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jdcFechaOut.setDate(Date.from(reserva.getFechaSalida().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jtfCantPers.setText(cantPers+"");
+    }
+    
+    private void limpiarPanelReservas(){
+        huesped = null;
+        listaReservas.clear();
+        fechaIngreso = null;
+        fechaSalida = null;
+        jdcFechaIn.setDate(null);
+        jdcFechaOut.setDate(null);
+        borrarFilasHabitacion();
+        cantPersRestantes = null;
+        cantPersIn = null;
+        jtfCantPers.setText("");
+        jtfCantPersRestantes.setText("");
+        mapaHabitaciones.clear();
+    }
 }

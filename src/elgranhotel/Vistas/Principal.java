@@ -111,6 +111,11 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jpBotonera;
     private javax.swing.JPanel jpPrimero;
-    private javax.swing.JTabbedPane jtpVentanas;
+    protected static javax.swing.JTabbedPane jtpVentanas;
     // End of variables declaration//GEN-END:variables
+
+    public static void cambiarVentanaAReservas(){
+        int i = jtpVentanas.indexOfTab("Reservas");
+        jtpVentanas.setSelectedIndex(i);
+    }
 }
