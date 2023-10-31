@@ -37,14 +37,14 @@ public class ElGranHotel {
         //System.out.println(huespedData.ListarHuesped());
         //huespedData.banearHuesped(6);
         //Pruebas de TipoHabitacion
-        TipoHabitacion tipo1 = new TipoHabitacion("S", 1, 1, "Simple", 20.5);
-        TipoHabitacion tipo2 = new TipoHabitacion("DQ", 2, 1, "Queen", 30.5);
-        TipoHabitacion tipo3 = new TipoHabitacion("DS", 2, 2, "Simple", 30.5);
-        TipoHabitacion tipo4 = new TipoHabitacion("TS", 3, 3, "Simple", 40.5);
-        TipoHabitacion tipo5 = new TipoHabitacion("TSQ", 3, 2, "Simple y Queen", 40.5);//125
-        TipoHabitacion tipo6 = new TipoHabitacion("C2SQ", 4, 3, "Simple y Queen", 50.5);//150
-        TipoHabitacion tipo7 = new TipoHabitacion("CS", 4, 4, "Simple", 50.5);//175
-        TipoHabitacion tipo8 = new TipoHabitacion("SL", 2, 1, "KING SIZE", 200.5);//10
+//        TipoHabitacion tipo1 = new TipoHabitacion("S", 1, 1, "Simple", 20.5);
+//        TipoHabitacion tipo2 = new TipoHabitacion("DQ", 2, 1, "Queen", 30.5);
+//        TipoHabitacion tipo3 = new TipoHabitacion("DS", 2, 2, "Simple", 30.5);
+//        TipoHabitacion tipo4 = new TipoHabitacion("TS", 3, 3, "Simple", 40.5);
+//        TipoHabitacion tipo5 = new TipoHabitacion("TSQ", 3, 2, "Simple y Queen", 40.5);//125
+//        TipoHabitacion tipo6 = new TipoHabitacion("C2SQ", 4, 3, "Simple y Queen", 50.5);//150
+//        TipoHabitacion tipo7 = new TipoHabitacion("CS", 4, 4, "Simple", 50.5);//175
+//        TipoHabitacion tipo8 = new TipoHabitacion("SL", 2, 1, "KING SIZE", 200.5);//10
 //        tipoData.agregarTipoHabitacion(tipo1);
 //        tipoData.agregarTipoHabitacion(tipo2);
 //        tipoData.agregarTipoHabitacion(tipo3);
@@ -98,18 +98,18 @@ public class ElGranHotel {
 //            habitacionData.agregarHabitacion(habitacion);
 //        }
 
+        Huesped huesped = huespedData.BuscarHuespedPorId(2);
+        Habitacion habitacion = habitacionData.buscarHabitacion(150);
+        LocalDate fechaEntrada = LocalDate.parse("2023-11-28");
+        LocalDate fechaSalida = LocalDate.parse("2023-12-07");
+        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+        double importe = habitacion.getTipoHabitacionCodigo().getPrecio() * dias;
+        System.out.println(importe);
+        Reserva reserva = new Reserva(huesped, habitacion, 3, fechaEntrada, fechaSalida, importe, true);
+        reservaData.crearReserva(reserva);
+
 //        Huesped huesped = huespedData.BuscarHuespedPorId(1);
 //        Habitacion habitacion = habitacionData.buscarHabitacion(1);
-//        LocalDate fechaEntrada = LocalDate.parse("2023-10-01");
-//        LocalDate fechaSalida = LocalDate.parse("2023-11-01");
-//        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
-//        double importe = habitacion.getTipoHabitacionCodigo().getPrecio() * dias;
-//        System.out.println(importe);
-//        Reserva reserva = new Reserva(huesped, habitacion, 1, fechaEntrada, fechaSalida, importe, true);
-//        reservaData.crearReserva(reserva);
-
-        Huesped huesped = huespedData.BuscarHuespedPorId(1);
-        Habitacion habitacion = habitacionData.buscarHabitacion(1);
 //        LocalDate fechaEntrada = LocalDate.parse("2023-12-01");
 //        LocalDate fechaSalida = LocalDate.parse("2024-01-01");
 //        long dias = ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);

@@ -88,15 +88,19 @@ public class HabitacionData extends Conexion{
         }
     }
     
+    //le agre la posibilidad de ocupar una habitacion. si recive una ocupada la libera,
+    //si esta libre, la  ocupa.
     public void disponibilidadHabitacion(Habitacion habitacion){
+        int idHabitacion = habitacion.getIdHabitacion();
+        if (habitacion.isDisponibilidad()){
         String sql = "UPDATE habitacion Set disponibilidad = 0 WHERE idHabitacion = ?";
         try{
             conectarBase();
             sentencia = conexion.prepareStatement(sql);
-            sentencia.setInt(1, habitacion.getIdHabitacion());
+            sentencia.setInt(1, idHabitacion);
             int exito = sentencia.executeUpdate();
             if(exito == 1){
-                JOptionPane.showMessageDialog(null, "La habitación está libre!");
+                JOptionPane.showMessageDialog(null, "se libero la habitacion" + idHabitacion+"!");
             }
             try{
                 desconectarBase();
@@ -105,6 +109,25 @@ public class HabitacionData extends Conexion{
             }
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion");
+        }
+        }else{
+            String sql = "UPDATE habitacion Set disponibilidad = 1 WHERE idHabitacion = ?";
+        try{
+            conectarBase();
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setInt(1, idHabitacion);
+            int exito = sentencia.executeUpdate();
+            if(exito == 1){
+                JOptionPane.showMessageDialog(null, "La habitación ha ocupado la habitacion " + idHabitacion);
+            }
+            try{
+                desconectarBase();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion" + ex.getMessage());
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion");
+        }
         }
     }
     
