@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class CrearReservas extends javax.swing.JPanel {
 
     Class tipo[] = new Class[]{java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class};
-    private DefaultTableModel modeloHuesped = new DefaultTableModel() {
+    protected static DefaultTableModel modeloHuesped = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
@@ -56,7 +56,7 @@ public class CrearReservas extends javax.swing.JPanel {
     private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private ArrayList<Reserva> listaReservas = new ArrayList();
     private ArrayList<Integer> listaIdHabitacion = new ArrayList();
-    private Huesped huesped = null;
+    protected static Huesped huesped = null;
     private LocalDate fechaIngreso = null;
     private LocalDate fechaSalida = null;
     private DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -658,14 +658,14 @@ public class CrearReservas extends javax.swing.JPanel {
     private javax.swing.JButton jbMostrar;
     private javax.swing.JComboBox<String> jcbFiltroHuesped;
     private javax.swing.JComboBox<String> jcbTipoHab;
-    private com.toedter.calendar.JDateChooser jdcFechaIn;
-    private com.toedter.calendar.JDateChooser jdcFechaOut;
+    private static com.toedter.calendar.JDateChooser jdcFechaIn;
+    private static com.toedter.calendar.JDateChooser jdcFechaOut;
     private javax.swing.JPanel jpContenedor1;
     private javax.swing.JPanel jpContenedor2;
     private javax.swing.JTable jtHabitaciones;
-    private javax.swing.JTable jtHuespedes;
-    private javax.swing.JTextField jtfBuscador;
-    private javax.swing.JTextField jtfCantPers;
+    private static javax.swing.JTable jtHuespedes;
+    private static javax.swing.JTextField jtfBuscador;
+    private static javax.swing.JTextField jtfCantPers;
     private javax.swing.JTextField jtfCantPersRestantes;
     // End of variables declaration//GEN-END:variables
 
@@ -694,7 +694,7 @@ public class CrearReservas extends javax.swing.JPanel {
         }
     }
 
-    private void borrarFilasHuespedes() {
+    private static void borrarFilasHuespedes() {
         int f = jtHuespedes.getRowCount() - 1;
         for (; f >= 0; f--) {
             modeloHuesped.removeRow(f);
@@ -748,7 +748,7 @@ public class CrearReservas extends javax.swing.JPanel {
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
-    public void traerReserva(Reserva reserva, int cantPers) {
+    public static void traerReserva(Reserva reserva, int cantPers) {
         borrarFilasHuespedes();
         huesped = reserva.getHuesped();
         jtfBuscador.setText(reserva.getHuesped().getIdHuesped() + "");
