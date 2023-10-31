@@ -5,17 +5,34 @@
  */
 package elgranhotel.Vistas;
 
+import elgranhotel.Entidades.Habitacion;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Leo Huari
  */
 public class Habitaciones extends javax.swing.JPanel {
-
+    private DefaultTableModel modeloListaHabitacion = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
+    private ArrayList<Habitacion> listaHabitacion = new ArrayList();
+    private ArrayList<Integer> listaIdHabitaciones = new ArrayList();
     /**
-     * Creates new form Habitaciones
+     * Creates new form Recepcion
      */
     public Habitaciones() {
         initComponents();
+        armarTablaHabitaciones();
+        cargarTablaHabitaciones();
+        centrarTablas(jtListaHabitaciones);
     }
 
     /**
@@ -27,19 +44,274 @@ public class Habitaciones extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 980, Short.MAX_VALUE)
+        jpPanelHab1 = new javax.swing.JPanel();
+        jcbFiltroHabitaciones = new javax.swing.JComboBox<>();
+        jlBuscarHabitacion = new javax.swing.JLabel();
+        jtBuscarHabitacion = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtListaHabitaciones = new javax.swing.JTable();
+        jbModificar1 = new javax.swing.JButton();
+        jbMantenimiento = new javax.swing.JButton();
+        jcbTipoHabitacion = new javax.swing.JComboBox<>();
+        jlTipoHabitacion = new javax.swing.JLabel();
+        jtTotalHabMostradas = new javax.swing.JTextField();
+        jlTotalHabMostradas = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jcbFiltroHabitaciones.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jcbFiltroHabitaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Número", "Disponibilidad", "Mantenimiento" }));
+
+        jlBuscarHabitacion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlBuscarHabitacion.setText("Buscar habitacion por: ");
+
+        jtBuscarHabitacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jtBuscarHabitacion.setText("Buscar ...");
+        jtBuscarHabitacion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtBuscarHabitacionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtBuscarHabitacionFocusLost(evt);
+            }
+        });
+        jtBuscarHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtBuscarHabitacionActionPerformed(evt);
+            }
+        });
+        jtBuscarHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtBuscarHabitacionKeyReleased(evt);
+            }
+        });
+
+        jtListaHabitaciones.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtListaHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtListaHabitacionesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtListaHabitaciones);
+
+        jbModificar1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jbModificar1.setText("Modificar");
+
+        jbMantenimiento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jbMantenimiento.setText("Mantenimiento");
+        jbMantenimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbMantenimientoActionPerformed(evt);
+            }
+        });
+
+        jcbTipoHabitacion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jcbTipoHabitacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "S", "DS", "DQ", "TS", "TSQ", "CS", "C2SQ", "SL" }));
+        jcbTipoHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoHabitacionitacionActionPerformed(evt);
+            }
+        });
+
+        jlTipoHabitacion.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlTipoHabitacion.setText("Tipo Habitación:");
+
+        jtTotalHabMostradas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        jlTotalHabMostradas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlTotalHabMostradas.setText("Total de habitaciones mostradas:");
+
+        javax.swing.GroupLayout jpPanelHab1Layout = new javax.swing.GroupLayout(jpPanelHab1);
+        jpPanelHab1.setLayout(jpPanelHab1Layout);
+        jpPanelHab1Layout.setHorizontalGroup(
+            jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPanelHab1Layout.createSequentialGroup()
+                .addGroup(jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpPanelHab1Layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(jbModificar1)
+                        .addGap(112, 112, 112)
+                        .addComponent(jbMantenimiento)
+                        .addGap(78, 78, 78)
+                        .addComponent(jlTotalHabMostradas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtTotalHabMostradas, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpPanelHab1Layout.createSequentialGroup()
+                            .addGap(80, 80, 80)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 774, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jpPanelHab1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jlBuscarHabitacion)
+                                .addGap(18, 18, 18)
+                                .addComponent(jcbFiltroHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jlTipoHabitacion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpPanelHab1Layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jtBuscarHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+        jpPanelHab1Layout.setVerticalGroup(
+            jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPanelHab1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlBuscarHabitacion)
+                    .addComponent(jcbFiltroHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTipoHabitacion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jtBuscarHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jpPanelHab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbModificar1)
+                    .addComponent(jbMantenimiento)
+                    .addComponent(jtTotalHabMostradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlTotalHabMostradas))
+                .addContainerGap())
         );
+
+        add(jpPanelHab1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 940, 380));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtBuscarHabitacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtBuscarHabitacionFocusGained
+        jtBuscarHabitacion.setText("");
+    }//GEN-LAST:event_jtBuscarHabitacionFocusGained
+
+    private void jtBuscarHabitacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtBuscarHabitacionFocusLost
+        if (jtBuscarHabitacion.getText().isEmpty()) {
+            jtBuscarHabitacion.setText("Buscar ...");
+        }
+    }//GEN-LAST:event_jtBuscarHabitacionFocusLost
+
+    private void jtBuscarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscarHabitacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtBuscarHabitacionActionPerformed
+
+    private void jtBuscarHabitacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBuscarHabitacionKeyReleased
+
+    }//GEN-LAST:event_jtBuscarHabitacionKeyReleased
+
+    private void jtListaHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtListaHabitacionesMouseClicked
+
+    }//GEN-LAST:event_jtListaHabitacionesMouseClicked
+
+    private void jbMantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbMantenimientoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbMantenimientoActionPerformed
+
+    private void jcbTipoHabitacionitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoHabitacionitacionActionPerformed
+        String codigo = jcbTipoHabitacion.getSelectedItem().toString();
+        boolean existe = false;
+
+        borrarFilasHabitaciones();
+
+        if (codigo.equals("Todas")) {
+            for (Habitacion habitacion : listaHabitacion) {
+                if (listaIdHabitaciones.contains(habitacion.getIdHabitacion())) {
+                    existe = true;
+                } else {
+                    existe = false;
+                }
+                modeloListaHabitacion.addRow(new Object[]{
+                    habitacion.getIdHabitacion(),
+                    habitacion.getPiso(),
+                    habitacion.getTipoHabitacionCodigo().getCodigo(),
+                    habitacion.isDisponibilidad(),
+                    habitacion.isEstado(),
+                    existe
+                });
+            }
+        }
+
+        for (Habitacion habitacion : listaHabitacion) {
+            if (habitacion.getTipoHabitacionCodigo().getCodigo().equals(codigo)) {
+                if (listaIdHabitaciones.contains(habitacion.getIdHabitacion())) {
+                    existe = true;
+                } else {
+                    existe = false;
+                }
+                modeloListaHabitacion.addRow(new Object[]{
+                    habitacion.getIdHabitacion(),
+                    habitacion.getPiso(),
+                    habitacion.getTipoHabitacionCodigo().getCodigo(),
+                    habitacion.isDisponibilidad(),
+                    habitacion.isEstado(),
+                    existe
+                });
+            }
+
+        }
+    }//GEN-LAST:event_jcbTipoHabitacionitacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbMantenimiento;
+    private javax.swing.JButton jbModificar1;
+    private javax.swing.JComboBox<String> jcbFiltroHabitaciones;
+    private javax.swing.JComboBox<String> jcbTipoHabitacion;
+    private javax.swing.JLabel jlBuscarHabitacion;
+    private javax.swing.JLabel jlTipoHabitacion;
+    private javax.swing.JLabel jlTotalHabMostradas;
+    private javax.swing.JPanel jpPanelHab1;
+    private javax.swing.JTextField jtBuscarHabitacion;
+    private javax.swing.JTable jtListaHabitaciones;
+    private javax.swing.JTextField jtTotalHabMostradas;
     // End of variables declaration//GEN-END:variables
+    private void armarTablaHabitaciones(){
+        modeloListaHabitacion.addColumn("Número");
+        modeloListaHabitacion.addColumn("Piso");
+        modeloListaHabitacion.addColumn("Código");
+        modeloListaHabitacion.addColumn("Disponibilidad");
+        modeloListaHabitacion.addColumn("Estado");
+        modeloListaHabitacion.addColumn("");
+        jtListaHabitaciones.setModel(modeloListaHabitacion);
+    }
+    
+    private void cargarTablaHabitaciones(){
+        for (Habitacion habitacion : listaHabitacion) {
+            modeloListaHabitacion.addRow(new Object[]{
+                habitacion.getIdHabitacion(),
+                habitacion.getPiso(),
+                habitacion.getTipoHabitacionCodigo().getCodigo(),
+                habitacion.isDisponibilidad(),
+                habitacion.isEstado(),
+                false
+            });
+        }
+    }
+    
+    private void borrarFilasHabitaciones(){
+        int f = jtListaHabitaciones.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloListaHabitacion.removeRow(f);
+        }
+    }
+    
+    private void centrarTablas(JTable table){
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, centerRenderer);
+
+        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.CENTER);
+    }
 }
