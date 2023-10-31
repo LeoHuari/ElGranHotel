@@ -782,27 +782,31 @@ public class AdministrarReservas extends javax.swing.JPanel {
         int i = JOptionPane.showConfirmDialog(null, "Desea cambiar la habitación?", "Modificación de habitación", JOptionPane.OK_CANCEL_OPTION);
         //variables para uso de joptionpane.showoptiondialog
         int respuesta = -1;
-        Object[] opciones = {"Crear Reserva", "Continuar Igualmente", "Cancelar"};
+        Object[] opciones = {"Cancelar", "Continuar Igualmente", "Crear Reserva"};
         //Se guarda la habitacion seleccionada
         int j = jtHabitaciones.getSelectedRow();
         Habitacion habitacion = habitacionData.buscarHabitacion((int)jtHabitaciones.getValueAt(j, 0));
+        
+        int cantPers = reserva.getCantPersonas()-habitacion.getTipoHabitacionCodigo().getCantidadPersonas();
         
         if(i != 0)
             return;
         
         // 0=yes, 1=no, 2=cancel
         if(habitacion.getTipoHabitacionCodigo().getCantidadPersonas()<reserva.getCantPersonas()){
-            String mensaje = "La cantidad de personas que la habitación admite es menor a la cantidad de personas de la reserva \n "
+            String mensaje = "La cantidad de personas que la habitación admite es menor a la cantidad de personas de la reserva\n"
                     + "¿Desea continuar de todas maneras, o crear nueva/s reserva/s para las peronas restantes?";
             respuesta = JOptionPane.showOptionDialog(this, mensaje, "Problema en cantidad de personas",
                     JOptionPane.YES_NO_CANCEL_OPTION, 
                     JOptionPane.QUESTION_MESSAGE, null, opciones, null);
         }
         
-        if(respuesta == 0)
+        if(respuesta == 0){
+            JOptionPane.showMessageDialog(null, "Esto es 0");
             return;
-        
+        }
         if(respuesta == 1){
+            JOptionPane.showMessageDialog(null, "Esto es 1");
             reserva.setHabitacion(habitacion);
             reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
             jtTiposMod.setText(habitacion.getTipoHabitacionCodigo().getCodigo());
@@ -813,19 +817,25 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
         
         if(respuesta == 2){
+            JOptionPane.showMessageDialog(null, "Esto es 2");
             String mensaje = "Se guardaran los cambios realizados en la reserva(habitación incluida) y se redireccionara a "
-                    + "creación de reservas \n ¿Desea continuar?";
+                    + "creación de reservas.\nQuedan "+ cantPers+" personas por relocar ¿Desea continuar?";
             int continuar = JOptionPane.showConfirmDialog(null, mensaje, "Continuar a reservas", JOptionPane.YES_NO_OPTION);
             
             if(continuar == 0){
+                JOptionPane.showMessageDialog(null, "Esto es Si?");
                 reserva.setHabitacion(habitacion);
                 reserva.setCantPersonas(habitacion.getTipoHabitacionCodigo().getCantidadPersonas());
-                
+                CrearReservas crear = new CrearReservas();
+                crear.traerReserva(reserva, cantPers);
+                Principal p = new Principal();
+                p.cambiarVentanaAReservas();
             }
+            return;
         }
         
         reserva.setHabitacion(habitacion);
-        JOptionPane.showMessageDialog(null, "Se modifico la habitación con exito.");
+        JOptionPane.showMessageDialog(null, "Se modifico la habitación con exito. Esto es no?");
     }//GEN-LAST:event_jtHabitacionesMouseClicked
 
 
