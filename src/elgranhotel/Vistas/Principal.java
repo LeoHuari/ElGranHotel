@@ -115,6 +115,7 @@ public class Principal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void cambiarVentanaAReservas(){
-        jtpVentanas.setSelectedIndex(1);
+        int i = jtpVentanas.indexOfTab("Reservas");
+        jtpVentanas.setSelectedIndex(i);
     }
 }
