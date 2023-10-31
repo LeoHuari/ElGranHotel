@@ -790,10 +790,17 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        if(reserva == null){
+            JOptionPane.showMessageDialog(null, "Debeb haber seleccionado una reserva");
+            return;
+        }
+        
         int j = JOptionPane.showConfirmDialog(null, "Esta seguro que desea cancelar la Reserva?", "Cancelando Reserva", JOptionPane.YES_NO_OPTION);
+        
         if (j == 0) {
             int i = jtReservas.getSelectedRow();
             reservaData.cancelarReserva((int) jtReservas.getValueAt(i, 0));
+            cargarTablaReservas();
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 

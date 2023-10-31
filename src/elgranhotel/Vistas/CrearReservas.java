@@ -610,7 +610,7 @@ public class CrearReservas extends javax.swing.JPanel {
                     habitacion.getPiso(),
                     habitacion.getTipoHabitacionCodigo().getCodigo(),
                     habitacion.isDisponibilidad(),
-                    habitacion.isEstado(),
+                    "Libre",
                     existe
                 });
             }
@@ -629,7 +629,7 @@ public class CrearReservas extends javax.swing.JPanel {
                     habitacion.getPiso(),
                     habitacion.getTipoHabitacionCodigo().getCodigo(),
                     habitacion.isDisponibilidad(),
-                    habitacion.isEstado(),
+                    "Libre",
                     existe
                 });
             }
@@ -729,7 +729,7 @@ public class CrearReservas extends javax.swing.JPanel {
                 habitacion.getIdHabitacion(),
                 habitacion.getPiso(),
                 habitacion.getTipoHabitacionCodigo().getCodigo(),
-                habitacion.isDisponibilidad(),
+                "Libre",
                 habitacion.isEstado(),
                 false
             });
