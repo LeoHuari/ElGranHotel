@@ -14,6 +14,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -668,7 +669,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private void jcbFiltrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltrarPorActionPerformed
         LocalDate hoy = LocalDate.now();
         ArrayList<Reserva> listaHoy = reservaData.buscarReservasPorFecha(hoy, hoy);
-        
+
         switch (jcbFiltrarPor.getSelectedIndex()) {
             case 0:
                 jpPorHuesped.setVisible(true);
@@ -842,19 +843,52 @@ public class AdministrarReservas extends javax.swing.JPanel {
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
 
-        int i = lista.size() - 1;
+        Iterator<Reserva> iterator = lista.iterator();
+        LocalDate fechaMayor = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        if (i == 0) {
+        if (lista.size() == 1) {
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaEntrada(fechaInMod);
             double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
             reserva.setImporte(monto);
             jtMontoMod.setText(reserva.getImporte() + " $");
-        } else {
+            return;
+        }
+
+        while (iterator.hasNext()) {
+            Reserva r = iterator.next();
+            if (r.getFechaEntrada().isEqual(reserva.getFechaEntrada())) {
+                iterator.remove();
+                break;
+            }
+        }
+
+        for (Reserva r : lista) {
+            if (fechaMayor.isBefore(r.getFechaSalida())) {
+                fechaMayor = r.getFechaSalida();
+            }
+        }
+
+        if (fechaMayor.isEqual(reserva.getFechaEntrada())) {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
             jdcFechaInMod.setDate(Date.valueOf(reserva.getFechaEntrada()));
             fechaInMod = reserva.getFechaEntrada();
+            return;
         }
+        
+        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: "+fechaMayor.format(formato)+"\n"
+                + "¿Desea modificar de todas formas?", "Conflictos en fechas", JOptionPane.YES_NO_OPTION);
+        if(cambiar!=0){
+            return;
+        }
+        
+        jdcFechaInMod.setDate(Date.valueOf(fechaMayor));
+        fechaInMod = fechaMayor;
+        reserva.setFechaEntrada(fechaMayor);
+        double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
+        reserva.setImporte(monto);
+        jtMontoMod.setText(reserva.getImporte() + " $");
+        JOptionPane.showMessageDialog(null, "Se modifico con exito");
     }//GEN-LAST:event_jbComprobarFechaInActionPerformed
 
     private void ComprobarFechaOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprobarFechaOutActionPerformed
@@ -868,19 +902,52 @@ public class AdministrarReservas extends javax.swing.JPanel {
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
 
-        int i = lista.size() - 1;
+        Iterator<Reserva> iterator = lista.iterator();
+        LocalDate fechaMenor = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        if (i == 0) {
+        if (lista.size() == 1) {
             JOptionPane.showMessageDialog(null, "La fecha esta disponible para realizar el cambio");
             reserva.setFechaSalida(fechaOutMod);
             double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
             reserva.setImporte(monto);
             jtMontoMod.setText(reserva.getImporte() + " $");
-        } else {
-            JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
-            jdcFechaOutMod.setDate(Date.valueOf(reserva.getFechaSalida()));
-            fechaOutMod = reserva.getFechaSalida();
+            return;
         }
+        
+        while (iterator.hasNext()) {
+            Reserva r = iterator.next();
+            if (r.getFechaSalida().isEqual(reserva.getFechaSalida())) {
+                iterator.remove();
+                break;
+            }
+        }
+        
+        for (Reserva r : lista) {
+            if (fechaMenor.isBefore(r.getFechaEntrada())) {
+                fechaMenor = r.getFechaSalida();
+            }
+        }
+        
+        if (fechaMenor.isEqual(reserva.getFechaSalida())) {
+            JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
+            jdcFechaOut.setDate(Date.valueOf(reserva.getFechaSalida()));
+            fechaOutMod = reserva.getFechaSalida();
+            return;
+        }
+        
+        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: "+fechaMenor.format(formato)+"\n"
+                + "¿Desea modificar de todas formas?", "Conflictos en fechas", JOptionPane.YES_NO_OPTION);
+        if(cambiar!=0){
+            return;
+        }
+        
+        jdcFechaOutMod.setDate(Date.valueOf(fechaMenor));
+        fechaOutMod = fechaMenor;
+        reserva.setFechaEntrada(fechaMenor);
+        double monto = reservaData.calcularImporte(fechaInMod, fechaOutMod, reserva.getHabitacion().getTipoHabitacionCodigo());
+        reserva.setImporte(monto);
+        jtMontoMod.setText(reserva.getImporte() + " $");
+        JOptionPane.showMessageDialog(null, "Se modifico con exito");
     }//GEN-LAST:event_ComprobarFechaOutActionPerformed
 
     private void jcbFiltroTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroTiposActionPerformed
@@ -965,12 +1032,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private void jbGuardarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarModActionPerformed
         LocalDate fechaEntrada = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaSalida = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        if(!fechaEntrada.isEqual(reserva.getFechaEntrada()) || !fechaSalida.isEqual(reserva.getFechaSalida())){
+
+        if (!fechaEntrada.isEqual(reserva.getFechaEntrada()) || !fechaSalida.isEqual(reserva.getFechaSalida())) {
             JOptionPane.showMessageDialog(null, "Debe comprobar la disponibilidad de los cambios en las fechas.");
             return;
         }
-        
+
         String mensaje = "Nombre: " + reserva.getHuesped().getNombre() + " ,DNI: " + reserva.getHuesped().getDni() + "\n"
                 + "Fecha de Ingreso: " + fechaInMod.format(formato) + " ,Fecha de Salida: " + fechaOutMod.format(formato) + "\n"
                 + "Nro. habitacion " + reserva.getHabitacion().getIdHabitacion() + " ,Tipo: " + reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
@@ -1081,18 +1148,18 @@ public class AdministrarReservas extends javax.swing.JPanel {
             }
         }
     }
-    
-    private void cargarReservasPendientes(ArrayList<Reserva> lista, LocalDate hoy){
-        for(Reserva reserva : lista){
-            if(reserva.getFechaEntrada().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()){
+
+    private void cargarReservasPendientes(ArrayList<Reserva> lista, LocalDate hoy) {
+        for (Reserva reserva : lista) {
+            if (reserva.getFechaEntrada().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()) {
                 cargarFilasReservas(reserva);
             }
         }
     }
-    
-    private void cargarReservasAtrasadas(ArrayList<Reserva> lista, LocalDate hoy){
-        for(Reserva reserva : lista){
-            if(reserva.getFechaSalida().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()){
+
+    private void cargarReservasAtrasadas(ArrayList<Reserva> lista, LocalDate hoy) {
+        for (Reserva reserva : lista) {
+            if (reserva.getFechaSalida().isBefore(hoy) && reserva.getHabitacion().isDisponibilidad()) {
                 cargarFilasReservas(reserva);
             }
         }
