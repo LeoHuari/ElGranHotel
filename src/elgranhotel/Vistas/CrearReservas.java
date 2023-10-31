@@ -473,6 +473,8 @@ public class CrearReservas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No pueden haber campos vacios");
         } else if (!fechaIn.before(fechaOut)) {
             JOptionPane.showMessageDialog(null, "La fecha de entrada no puede ser mayor que la fecha de salida");
+        } else if (fechaIn.equals(fechaOut)){
+            JOptionPane.showMessageDialog(null, "Las fechas no pueden ser iguales");
         } else {
             borrarFilasHabitacion();
             cargarListaHabitaciones(fechaIn, fechaOut);
@@ -540,7 +542,7 @@ public class CrearReservas extends javax.swing.JPanel {
             
             reserva.setHuesped(huesped);
             reserva.setHabitacion(habitacion);
-            reserva.setCantPersonas(Integer.parseInt(jtfCantPers.getText()));
+            reserva.setCantPersonas(cantPersIn);
             reserva.setFechaEntrada(fechaIngreso);
             reserva.setFechaSalida(fechaSalida);
             reserva.setImporte(importe);
@@ -612,6 +614,7 @@ public class CrearReservas extends javax.swing.JPanel {
                     existe
                 });
             }
+            return;
         }
 
         for (Habitacion habitacion : listaHabitaciones) {
