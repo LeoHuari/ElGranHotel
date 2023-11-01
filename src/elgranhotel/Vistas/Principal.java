@@ -167,12 +167,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int i = jtpVentanas.indexOfTab("Rooms");
+        int i = jtpVentanas.indexOfTab("Guest");
         jtpVentanas.setSelectedIndex(i);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int i = jtpVentanas.indexOfTab("Guest");
+        int i = jtpVentanas.indexOfTab("Rooms");
         jtpVentanas.setSelectedIndex(i);
     }//GEN-LAST:event_jButton5ActionPerformed
 

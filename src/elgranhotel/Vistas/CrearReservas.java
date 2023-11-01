@@ -39,8 +39,7 @@ public class CrearReservas extends javax.swing.JPanel {
     };
     private DefaultTableModel modeloHabitacion = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
-            boolean columnasEditables[] = {false, false, false, false, false, true};
-            return columnasEditables[c];
+            return false;
         }
 
         public Class getColumnClass(int i) {
