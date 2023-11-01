@@ -595,6 +595,7 @@ public class Recepcion extends javax.swing.JPanel {
                                 });
                             }
                         }
+                        jbCambiarHab.setVisible(true);
                     }
 
                 }
