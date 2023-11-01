@@ -217,4 +217,32 @@ public class HabitacionData extends Conexion{
         }
         return lista;
     }
+    
+    public ArrayList<Habitacion>listarHabitaciones(){
+        ArrayList<Habitacion> lista = new ArrayList();
+        try{
+            conectarBase();
+            String sql = "SELECT * FROM habitacion";
+            sentencia = conexion.prepareStatement(sql);
+            resultado = sentencia.executeQuery();
+            Habitacion habitacion;
+            while(resultado.next()){
+                habitacion = new Habitacion();
+                habitacion.setIdHabitacion(resultado.getInt(1));
+                habitacion.setPiso(resultado.getInt(2));
+                habitacion.setTipoHabitacionCodigo(tipoData.buscarTipoHabitacion(resultado.getString(3)));
+                habitacion.setDisponibilidad(resultado.getBoolean(4));
+                habitacion.setEstado(resultado.getBoolean(5));
+                lista.add(habitacion);
+            }
+            try{
+                desconectarBase();
+            } catch(Exception ex){
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion" + ex.getMessage());
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion");
+        }
+        return lista;
+    }
 }
