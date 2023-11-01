@@ -957,18 +957,18 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
 
         for (Reserva r : lista) {
-            if (fechaMenor.isBefore(r.getFechaEntrada())) {
-                fechaMenor = r.getFechaSalida();
+            if (!fechaMenor.isBefore(r.getFechaEntrada())) {
+                fechaMenor = r.getFechaEntrada();
             }
         }
 
-        if (fechaMenor.isEqual(reserva.getFechaSalida())) {
+        if (fechaMenor.equals(reserva.getFechaSalida())) {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
             jdcFechaOut.setDate(Date.valueOf(reserva.getFechaSalida()));
             fechaOutMod = reserva.getFechaSalida();
             return;
         }
-
+        
         int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: " + fechaMenor.format(formato) + "\n"
                 + "¿Desea modificar de todas formas?", "Conflictos en fechas", JOptionPane.YES_NO_OPTION);
         if (cambiar != 0) {
