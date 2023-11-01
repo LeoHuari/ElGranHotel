@@ -570,6 +570,30 @@ public class Recepcion extends javax.swing.JPanel {
                         reservaSeleccionada.setImporte(importeNuevo);
                         reservaSeleccionada.setFechaSalida(fechaMenor);
                         reservaData.modificarReserva(reservaSeleccionada);
+                        lista = reservaData.listarReservas();
+       // JOptionPane.showMessageDialog(null, lista);
+        int dni = Integer.parseInt(jtfBuscarReservas.getText());
+        jbCheckIn.setEnabled(false);
+        jbExtender.setEnabled(false);
+        jbCheckOut.setEnabled(false);
+        jpExtender.setVisible(false);
+        jpCheckOut.setVisible(false);
+        jpCheckIn.setVisible(false);
+        jpVacio.setVisible(true);
+        borrarFilasReservas();
+        for (Reserva reserva : lista) {
+            if (reserva.getHuesped().getDni() == dni) {
+                modeloReservas.addRow(new Object[]{
+                    reserva.getIdReserva(), //0
+                    reserva.getHuesped().getNombre(), //1
+                    reserva.getHabitacion().getIdHabitacion(), //2
+                    reserva.getCantPersonas(), //3
+                    reserva.getFechaEntrada(), //4
+                    reserva.getFechaSalida(), //5
+                    reserva.getImporte(), //6
+                    reserva.isEstado() //7
+                });
+            }
                     }
 
                 }
