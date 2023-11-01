@@ -30,7 +30,7 @@ public class ReservaData extends Conexion {
             sentencia.executeUpdate();
             resultado = sentencia.getGeneratedKeys();
             if (resultado.next()) {
-                JOptionPane.showMessageDialog(null, "Se realizo la reserva con exito");
+                //JOptionPane.showMessageDialog(null, "Se realizo la reserva con exito");
                 reserva.setIdReserva(resultado.getInt(1));
             }
         } catch (Exception ex) {
@@ -48,7 +48,7 @@ public class ReservaData extends Conexion {
             sentencia.setInt(1, idReserva);
             int i = sentencia.executeUpdate();
             if (i == 1) {
-                JOptionPane.showMessageDialog(null, "Se cancelo la reserva con exito");
+                //JOptionPane.showMessageDialog(null, "Se cancelo la reserva con exito");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error en metodo crearReserva: " + ex);

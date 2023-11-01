@@ -564,13 +564,17 @@ public class CrearReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jtHabitacionesMouseClicked
 
     private void jbCompletarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCompletarReservaActionPerformed
-        if (cantPersRestantes > 0 || cantPersRestantes == null) {
-            JOptionPane.showMessageDialog(this, "Faltan personas por hospedar");
-            return;
+        if(huesped == null){
+            JOptionPane.showMessageDialog(null, "Tiene que haber seleccionado al menos un huesped");
         }
-
+        
         if (listaReservas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Tiene que haber seleccionado al menos una habitación");
+            return;
+        }
+        
+        if (cantPersRestantes > 0 || cantPersRestantes == null) {
+            JOptionPane.showMessageDialog(this, "Faltan personas por hospedar");
             return;
         }
 
