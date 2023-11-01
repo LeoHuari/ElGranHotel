@@ -408,7 +408,7 @@ public class Recepcion extends javax.swing.JPanel {
 
     private void jtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtBuscarActionPerformed
         lista = reservaData.listarReservas();
-       // JOptionPane.showMessageDialog(null, lista);
+        // JOptionPane.showMessageDialog(null, lista);
         int dni = Integer.parseInt(jtfBuscarReservas.getText());
         jbCheckIn.setEnabled(false);
         jbExtender.setEnabled(false);
@@ -478,7 +478,7 @@ public class Recepcion extends javax.swing.JPanel {
         //obtengo la lista de reservas para la habitacio nentre el fin de la estadia original
         // y el fin del periodo de extension
         listaReservasPeriodo = reservaData.listarReservasPorFechaYHabitacion(inicio, fin, IdHabitacion);
-       // JOptionPane.showMessageDialog(null, listaReservasPeriodo);
+        // JOptionPane.showMessageDialog(null, listaReservasPeriodo);
         //obtengo la reserva seleccionada completa
         for (Reserva reserva : lista) {
             if (reserva.getIdReserva() == idReservaSeleccionada) {
@@ -518,32 +518,32 @@ public class Recepcion extends javax.swing.JPanel {
                     reservaSeleccionada.setFechaSalida(fechaMenor);
                     reservaSeleccionada.setImporte(importeNuevo);
                     reservaData.modificarReserva(reservaSeleccionada);
-                    
+
                     lista = reservaData.listarReservas();
-       // JOptionPane.showMessageDialog(null, lista);
-        int dni = Integer.parseInt(jtfBuscarReservas.getText());
-        jbCheckIn.setEnabled(false);
-        jbExtender.setEnabled(false);
-        jbCheckOut.setEnabled(false);
-        jpExtender.setVisible(false);
-        jpCheckOut.setVisible(false);
-        jpCheckIn.setVisible(false);
-        jpVacio.setVisible(true);
-        borrarFilasReservas();
-        for (Reserva reserva : lista) {
-            if (reserva.getHuesped().getDni() == dni) {
-                modeloReservas.addRow(new Object[]{
-                    reserva.getIdReserva(), //0
-                    reserva.getHuesped().getNombre(), //1
-                    reserva.getHabitacion().getIdHabitacion(), //2
-                    reserva.getCantPersonas(), //3
-                    reserva.getFechaEntrada(), //4
-                    reserva.getFechaSalida(), //5
-                    reserva.getImporte(), //6
-                    reserva.isEstado() //7
-                });
-            }
-        }
+                    // JOptionPane.showMessageDialog(null, lista);
+                    int dni = Integer.parseInt(jtfBuscarReservas.getText());
+                    jbCheckIn.setEnabled(false);
+                    jbExtender.setEnabled(false);
+                    jbCheckOut.setEnabled(false);
+                    jpExtender.setVisible(false);
+                    jpCheckOut.setVisible(false);
+                    jpCheckIn.setVisible(false);
+                    jpVacio.setVisible(true);
+                    borrarFilasReservas();
+                    for (Reserva reserva : lista) {
+                        if (reserva.getHuesped().getDni() == dni) {
+                            modeloReservas.addRow(new Object[]{
+                                reserva.getIdReserva(), //0
+                                reserva.getHuesped().getNombre(), //1
+                                reserva.getHabitacion().getIdHabitacion(), //2
+                                reserva.getCantPersonas(), //3
+                                reserva.getFechaEntrada(), //4
+                                reserva.getFechaSalida(), //5
+                                reserva.getImporte(), //6
+                                reserva.isEstado() //7
+                            });
+                        }
+                    }
                 }
 
             } else {
@@ -571,29 +571,30 @@ public class Recepcion extends javax.swing.JPanel {
                         reservaSeleccionada.setFechaSalida(fechaMenor);
                         reservaData.modificarReserva(reservaSeleccionada);
                         lista = reservaData.listarReservas();
-       // JOptionPane.showMessageDialog(null, lista);
-        int dni = Integer.parseInt(jtfBuscarReservas.getText());
-        jbCheckIn.setEnabled(false);
-        jbExtender.setEnabled(false);
-        jbCheckOut.setEnabled(false);
-        jpExtender.setVisible(false);
-        jpCheckOut.setVisible(false);
-        jpCheckIn.setVisible(false);
-        jpVacio.setVisible(true);
-        borrarFilasReservas();
-        for (Reserva reserva : lista) {
-            if (reserva.getHuesped().getDni() == dni) {
-                modeloReservas.addRow(new Object[]{
-                    reserva.getIdReserva(), //0
-                    reserva.getHuesped().getNombre(), //1
-                    reserva.getHabitacion().getIdHabitacion(), //2
-                    reserva.getCantPersonas(), //3
-                    reserva.getFechaEntrada(), //4
-                    reserva.getFechaSalida(), //5
-                    reserva.getImporte(), //6
-                    reserva.isEstado() //7
-                });
-            }
+                        // JOptionPane.showMessageDialog(null, lista);
+                        int dni = Integer.parseInt(jtfBuscarReservas.getText());
+                        jbCheckIn.setEnabled(false);
+                        jbExtender.setEnabled(false);
+                        jbCheckOut.setEnabled(false);
+                        jpExtender.setVisible(false);
+                        jpCheckOut.setVisible(false);
+                        jpCheckIn.setVisible(false);
+                        jpVacio.setVisible(true);
+                        borrarFilasReservas();
+                        for (Reserva reserva : lista) {
+                            if (reserva.getHuesped().getDni() == dni) {
+                                modeloReservas.addRow(new Object[]{
+                                    reserva.getIdReserva(), //0
+                                    reserva.getHuesped().getNombre(), //1
+                                    reserva.getHabitacion().getIdHabitacion(), //2
+                                    reserva.getCantPersonas(), //3
+                                    reserva.getFechaEntrada(), //4
+                                    reserva.getFechaSalida(), //5
+                                    reserva.getImporte(), //6
+                                    reserva.isEstado() //7
+                                });
+                            }
+                        }
                     }
 
                 }
@@ -614,35 +615,35 @@ public class Recepcion extends javax.swing.JPanel {
     }//GEN-LAST:event_jbCambiarHabActionPerformed
 
     private void jbConfirmarCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbConfirmarCheckOutActionPerformed
-        Reserva reservaSeleccionada= new Reserva();
-        
+        Reserva reservaSeleccionada = new Reserva();
+
         int fila = jtReservas.getSelectedRow();
         int idReserva = (Integer) jtReservas.getValueAt(fila, 0);
         for (Reserva reserva : lista) {
             if (reserva.getIdReserva() == idReserva) {
-             reservaSeleccionada= reserva;
+                reservaSeleccionada = reserva;
             }
         }
-        
+
         String mensaje = "Nombre: " + reservaSeleccionada.getHuesped().getNombre() + " ,DNI: " + reservaSeleccionada.getHuesped().getDni() + "\n"
                 + "Fecha de Ingreso: " + reservaSeleccionada.getFechaEntrada().format(formato) + " ,Fecha de Salida: " + reservaSeleccionada.getFechaSalida().format(formato) + "\n";
-        
-         mensaje += " Nro. habitacion " + reservaSeleccionada.getHabitacion().getIdHabitacion() + " ,Tipo: " + reservaSeleccionada.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
-                    + " ,Monto: " + reservaSeleccionada.getImporte() + " $\n";
-        
-         int confirmar = JOptionPane.showConfirmDialog(null, mensaje, "Confirme Salida", JOptionPane.OK_CANCEL_OPTION);
+
+        mensaje += " Nro. habitacion " + reservaSeleccionada.getHabitacion().getIdHabitacion() + " ,Tipo: " + reservaSeleccionada.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
+                + " ,Monto: " + reservaSeleccionada.getImporte() + " $\n";
+
+        int confirmar = JOptionPane.showConfirmDialog(null, mensaje, "Confirme Salida", JOptionPane.OK_CANCEL_OPTION);
 
         if (confirmar != 0) {
             return;
         }
-            
-         habitacionData.disponibilidadHabitacion(reservaSeleccionada.getHabitacion());
-          reservaData.cancelarReserva(idReserva);
-                borrarFilasReservas();
-                jbConfirmarCheckOut.setFocusPainted(false);
-                jbCheckOut.setEnabled(false);
-                jpCheckOut.setVisible(false);
-                
+
+        habitacionData.disponibilidadHabitacion(reservaSeleccionada.getHabitacion());
+        reservaData.cancelarReserva(idReserva);
+        borrarFilasReservas();
+        jbConfirmarCheckOut.setFocusPainted(false);
+        jbCheckOut.setEnabled(false);
+        jpCheckOut.setVisible(false);
+
     }//GEN-LAST:event_jbConfirmarCheckOutActionPerformed
 
     //Metodo para capturar la seleccion de la tabla
@@ -659,15 +660,15 @@ public class Recepcion extends javax.swing.JPanel {
                     LocalDate fechaInicio = (LocalDate) jtReservas.getValueAt(fila, 4);
                     LocalDate fechaFin = (LocalDate) jtReservas.getValueAt(fila, 5);
                     int idReserva = (Integer) jtReservas.getValueAt(fila, 0);
-                    
+
                     if (jpExtender.isVisible()) {
                         jpExtender.setVisible(false);
                         jpVacio.setVisible(true);
                     }
                     if (jpCheckOut.isVisible()) {
-                    jpCheckOut.setVisible(false);
-                    jpVacio.setVisible(true); 
-                }
+                        jpCheckOut.setVisible(false);
+                        jpVacio.setVisible(true);
+                    }
                     for (Reserva reserva : lista) {
                         if (reserva.getIdReserva() == idReserva) {
                             habitacion = reserva.getHabitacion();
@@ -709,14 +710,14 @@ public class Recepcion extends javax.swing.JPanel {
                     // Si la propiedad "date" cambió, habilitamos el botón
                     LocalDate inicio = jdchInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     LocalDate fin = jdchFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                    if(fin.isBefore(inicio)||fin.equals(inicio)){
+                    if (fin.isBefore(inicio) || fin.equals(inicio)) {
                         JOptionPane.showMessageDialog(null, "la fecha de salida debe ser posterior a la de entrada");
-                        
-                    }else {
-                    jbComprobarDisponibilidad.setEnabled(true);
-                    String CantDias = Long.toString(DAYS.between(inicio, fin));
-                    jtfCantDias.setText(CantDias);
-                    
+
+                    } else {
+                        jbComprobarDisponibilidad.setEnabled(true);
+                        String CantDias = Long.toString(DAYS.between(inicio, fin));
+                        jtfCantDias.setText(CantDias);
+
                     }
                 }
             }
