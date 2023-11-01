@@ -393,7 +393,7 @@ public class CrearReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfCantPersRestantesActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        if(huesped == null || listaReservas.isEmpty()){
+        if (huesped == null || listaReservas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No hay cambios que cancelar");
             return;
         }
@@ -520,18 +520,16 @@ public class CrearReservas extends javax.swing.JPanel {
             cantPersRestantes += mapaHabitaciones.get((int) jtHabitaciones.getValueAt(i, 0));
             jtfCantPersRestantes.setText(cantPersRestantes + "");
         } else {
-            String num = JOptionPane.showInputDialog("Ingrese la cantidad de personas:");
-            
-            if(!num.matches("\\d+")){
-                JOptionPane.showMessageDialog(null, "El numero de personas debe ser un numero entero");
+            try {
+                String num = JOptionPane.showInputDialog("Ingrese la cantidad de personas:");
+                if (!num.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "El numero de personas debe ser un numero entero");
+                    return;
+                }
+                cantPersIn = Integer.parseInt(num);
+            } catch (NullPointerException ex) {
                 return;
             }
-            
-            if(num == null){
-                return;
-            }
-            
-            cantPersIn = Integer.parseInt(num);
 
             if (cantPersIn > habitacion.getTipoHabitacionCodigo().getCantidadPersonas()) {
                 JOptionPane.showMessageDialog(null, "El numero de personas no puede ser mayor que el numero que admite el tipo de habitacion");

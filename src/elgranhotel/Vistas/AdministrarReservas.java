@@ -47,9 +47,11 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private LocalDate fechaSalida = null;
     private LocalDate fechaInMod = null;
     private LocalDate fechaOutMod = null;
-    private ArrayList<Reserva> listaReservas = reservaData.listarReservas();;
+    private ArrayList<Reserva> listaReservas = reservaData.listarReservas();
+    ;
     private ArrayList<Habitacion> listaHabitaciones = new ArrayList();
     private Reserva reserva = null;
+    private Reserva reservaComprobar = null;
 
     public AdministrarReservas() {
         initComponents();
@@ -790,13 +792,13 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        if(reserva == null){
+        if (reserva == null) {
             JOptionPane.showMessageDialog(null, "Debeb haber seleccionado una reserva");
             return;
         }
-        
+
         int j = JOptionPane.showConfirmDialog(null, "Esta seguro que desea cancelar la Reserva?", "Cancelando Reserva", JOptionPane.YES_NO_OPTION);
-        
+
         if (j == 0) {
             int i = jtReservas.getSelectedRow();
             reservaData.cancelarReserva((int) jtReservas.getValueAt(i, 0));
@@ -807,6 +809,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     private void jtReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtReservasMouseClicked
         int i = jtReservas.getSelectedRow();
         reserva = reservaData.buscarReservaPorIdD((int) jtReservas.getValueAt(i, 0));
+        reservaComprobar = reservaData.buscarReservaPorIdD((int) jtReservas.getValueAt(i, 0));
     }//GEN-LAST:event_jtReservasMouseClicked
 
     private void jbCambiarNroHabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarNroHabActionPerformed
@@ -825,11 +828,16 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
 
         limpiarPanelMod();
+        borrarFilasHabitaciones();
     }//GEN-LAST:event_jbCancelarModActionPerformed
 
     private void jbCambiarCantPersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCambiarCantPersActionPerformed
         String numPers = JOptionPane.showInputDialog("Ingrese el numero de personas:");
-
+        
+        if (numPers == null || (numPers != null && ("".equals(numPers)))) {
+            return;
+        }
+        
         if (!numPers.matches("\\d+")) {
             JOptionPane.showMessageDialog(null, "Solo se admiten numeros enteros");
             return;
@@ -843,6 +851,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
 
         jtCantPersMod.setText(numPers);
+        reserva.setCantPersonas(nPersMod);
     }//GEN-LAST:event_jbCambiarCantPersActionPerformed
 
     private void jbComprobarFechaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComprobarFechaInActionPerformed
@@ -853,6 +862,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
 
         fechaInMod = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (fechaInMod.isEqual(reserva.getFechaEntrada())) {
+            JOptionPane.showMessageDialog(null, "No hay cambios en la fecha");
+            return;
+        }
+
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
 
@@ -888,13 +903,13 @@ public class AdministrarReservas extends javax.swing.JPanel {
             fechaInMod = reserva.getFechaEntrada();
             return;
         }
-        
-        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: "+fechaMayor.format(formato)+"\n"
+
+        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: " + fechaMayor.format(formato) + "\n"
                 + "¿Desea modificar de todas formas?", "Conflictos en fechas", JOptionPane.YES_NO_OPTION);
-        if(cambiar!=0){
+        if (cambiar != 0) {
             return;
         }
-        
+
         jdcFechaInMod.setDate(Date.valueOf(fechaMayor));
         fechaInMod = fechaMayor;
         reserva.setFechaEntrada(fechaMayor);
@@ -912,6 +927,12 @@ public class AdministrarReservas extends javax.swing.JPanel {
         }
 
         fechaOutMod = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (fechaOutMod.isEqual(reserva.getFechaSalida())) {
+            JOptionPane.showMessageDialog(null, "No hay cambios en la fecha");
+            return;
+        }
+
         int h = reserva.getHabitacion().getIdHabitacion();
         ArrayList<Reserva> lista = reservaData.listarReservasPorFechaYHabitacion(fechaInMod, fechaOutMod, h);
 
@@ -926,7 +947,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
             jtMontoMod.setText(reserva.getImporte() + " $");
             return;
         }
-        
+
         while (iterator.hasNext()) {
             Reserva r = iterator.next();
             if (r.getFechaSalida().isEqual(reserva.getFechaSalida())) {
@@ -934,26 +955,26 @@ public class AdministrarReservas extends javax.swing.JPanel {
                 break;
             }
         }
-        
+
         for (Reserva r : lista) {
             if (fechaMenor.isBefore(r.getFechaEntrada())) {
                 fechaMenor = r.getFechaSalida();
             }
         }
-        
+
         if (fechaMenor.isEqual(reserva.getFechaSalida())) {
             JOptionPane.showMessageDialog(null, "No es posible realizar el cambio, existen reservas para esta fecha");
             jdcFechaOut.setDate(Date.valueOf(reserva.getFechaSalida()));
             fechaOutMod = reserva.getFechaSalida();
             return;
         }
-        
-        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: "+fechaMenor.format(formato)+"\n"
+
+        int cambiar = JOptionPane.showConfirmDialog(null, "Solo se puede extender hasta: " + fechaMenor.format(formato) + "\n"
                 + "¿Desea modificar de todas formas?", "Conflictos en fechas", JOptionPane.YES_NO_OPTION);
-        if(cambiar!=0){
+        if (cambiar != 0) {
             return;
         }
-        
+
         jdcFechaOutMod.setDate(Date.valueOf(fechaMenor));
         fechaOutMod = fechaMenor;
         reserva.setFechaEntrada(fechaMenor);
@@ -1046,6 +1067,16 @@ public class AdministrarReservas extends javax.swing.JPanel {
         LocalDate fechaEntrada = jdcFechaInMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaSalida = jdcFechaOutMod.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
+        boolean cambioFecha1 = reserva.getFechaEntrada().isEqual(reservaComprobar.getFechaEntrada());
+        boolean cambioFecha2 = reserva.getFechaSalida().isEqual(reservaComprobar.getFechaSalida());
+        boolean cantPers = (reserva.getCantPersonas()==reservaComprobar.getCantPersonas());
+        boolean nroHab = (reserva.getHabitacion().getIdHabitacion()==reservaComprobar.getHabitacion().getIdHabitacion());
+        
+        if(cambioFecha1 && cambioFecha2 && cantPers && nroHab){
+            JOptionPane.showMessageDialog(null, "No hay cambios que guardar");
+            return;
+        }
+        
         if (!fechaEntrada.isEqual(reserva.getFechaEntrada()) || !fechaSalida.isEqual(reserva.getFechaSalida())) {
             JOptionPane.showMessageDialog(null, "Debe comprobar la disponibilidad de los cambios en las fechas.");
             return;
@@ -1053,8 +1084,9 @@ public class AdministrarReservas extends javax.swing.JPanel {
 
         String mensaje = "Nombre: " + reserva.getHuesped().getNombre() + " ,DNI: " + reserva.getHuesped().getDni() + "\n"
                 + "Fecha de Ingreso: " + fechaInMod.format(formato) + " ,Fecha de Salida: " + fechaOutMod.format(formato) + "\n"
-                + "Nro. habitacion " + reserva.getHabitacion().getIdHabitacion() + " ,Tipo: " + reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo() + ""
-                + " ,Monto: " + reserva.getImporte() + " $\n"
+                + "Nro. habitacion " + reserva.getHabitacion().getIdHabitacion() + " ,Tipo: " + reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo() + "\n"
+                + "Cantidad de personas: "+reserva.getCantPersonas()+"\n"
+                + "Monto: " + reserva.getImporte() + " $\n"
                 + "¿Desea guardar los cambios?";
         int i = JOptionPane.showConfirmDialog(null, mensaje, "Confirmar modificaciones", JOptionPane.YES_NO_OPTION);
         //Recordar poner mas verificaciones para asegurar que se comprobaron los cambios de fechas si es que los hubo
@@ -1131,6 +1163,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         modeloReservas.addColumn("DNI");
         modeloReservas.addColumn("Nro. Habitación");
         modeloReservas.addColumn("Tipo Habitación");
+        modeloReservas.addColumn("Cant. Personas");
         modeloReservas.addColumn("Fecha Ingreso");
         modeloReservas.addColumn("Fecha Salida");
         modeloReservas.addColumn("Importe Total");
@@ -1138,7 +1171,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
     }
 
     protected void cargarTablaReservas() {
-        
+
         for (Reserva reserva : listaReservas) {
             cargarFilasReservas(reserva);
         }
@@ -1185,6 +1218,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
             reserva.getHuesped().getDni(),
             reserva.getHabitacion().getIdHabitacion(),
             reserva.getHabitacion().getTipoHabitacionCodigo().getCodigo(),
+            reserva.getCantPersonas(),
             reserva.getFechaEntrada().format(formato),
             reserva.getFechaSalida().format(formato),
             reserva.getImporte()
@@ -1250,8 +1284,9 @@ public class AdministrarReservas extends javax.swing.JPanel {
         listaHabitaciones.clear();
         fechaInMod = null;
         fechaOutMod = null;
+        reservaComprobar = null;
     }
-    
+
     private void centrarTablas(JTable table) {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -1260,7 +1295,7 @@ public class AdministrarReservas extends javax.swing.JPanel {
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
     }
-    
+
     protected static void cargarTablaReservaStatic(ArrayList<Reserva> lista) {
         for (Reserva reserva : lista) {
             cargarFilasReservas(reserva);
