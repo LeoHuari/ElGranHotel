@@ -99,7 +99,7 @@ public class HabitacionData extends Conexion{
             sentencia.setInt(1, idHabitacion);
             int exito = sentencia.executeUpdate();
             if(exito == 1){
-                JOptionPane.showMessageDialog(null, "se libero la habitacion" + idHabitacion+"!");
+                JOptionPane.showMessageDialog(null, "se libero la habitacion " + idHabitacion+"!");
             }
             try{
                 desconectarBase();
@@ -117,7 +117,7 @@ public class HabitacionData extends Conexion{
             sentencia.setInt(1, idHabitacion);
             int exito = sentencia.executeUpdate();
             if(exito == 1){
-                JOptionPane.showMessageDialog(null, "La habitación ha ocupado la habitacion " + idHabitacion);
+                JOptionPane.showMessageDialog(null, " Se ha ocupado la habitacion Nro" + idHabitacion);
             }
             try{
                 desconectarBase();
